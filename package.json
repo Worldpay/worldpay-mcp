@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc && mkdir -p dist/templates && cp -r templates/* dist/templates/",
-    "start": "node dist/server-sse.js",
-    "dev": "tsc && node dist/server-sse.js",
+    "start": "node dist/server-http.js",
+    "dev": "tsc && node dist/server-http.js",
     "test": "vitest"
   },
   "author": "",

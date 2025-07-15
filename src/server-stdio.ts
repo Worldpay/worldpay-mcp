@@ -1,11 +1,9 @@
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { server } from "./tools.js";
-import { setupResources } from "./resources.js";
-// Import prompts to ensure they are registered
-import "./prompts.js";
+import { server } from "./server.js";
 
-// Set up all capabilities
-setupResources(server);
+import "./prompts.js";
+import "./resources.js";
+import "./tools.js";
 
 // Connect using StdioServerTransport
 const transport = new StdioServerTransport();

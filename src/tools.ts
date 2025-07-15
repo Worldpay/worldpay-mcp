@@ -1,10 +1,9 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import fetch from 'node-fetch';
 import path from "path";
 import fs from "fs/promises";
 import { fileURLToPath } from 'url';
-import { features } from "process";
+import { server } from "./server.js";
 
 // Define __dirname equivalent for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -36,17 +35,7 @@ type WorldpayResponse = {
     };
   };
   
-  // Create an MCP server with all capabilities
-  export const server = new McpServer({
-    name: "Worldpay",
-    version: "1.0.0"
-  }, {
-    capabilities: {
-      prompts: {},
-      resources: {},
-      tools: {}
-    }
-  });
+
   
   // Payment tool schema
   const paymentSchema = {
