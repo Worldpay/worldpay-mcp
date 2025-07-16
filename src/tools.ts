@@ -59,10 +59,10 @@ type WorldpayResponse = {
   }
 
   const paymentGenerateSchema = {
-    method: z.enum(["card", "paypal"]),
-    instrument: z.enum(["plain", "session"]),
+    method: z.enum(["card"]),
+    instrument: z.enum(["session"]),
     features: z.array(z.enum(["3ds", "fraud", "payfac", "recurring", "installments","moto","autoSettlement","checkout","tokens","cards","applePay","googlePay","subscriptions"])),
-    language: z.enum(["node", "java"]),
+    language: z.enum(["node"]),
   }
 
   const paymentQuerySchema = {
@@ -333,7 +333,7 @@ type WorldpayResponse = {
 
         const js = params.framework === "web" 
           ? await fs.readFile(path.join(__dirname, 'templates/code/web_js.js'), 'utf8') 
-          : ""
+          : "There is no additional JavaScript required for React, as the component handles everything internally.";
         
         return {
           content: [
