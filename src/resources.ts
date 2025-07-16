@@ -128,6 +128,14 @@ const markdownResources: MarkdownResource[] = [
     {
         name: "Submit a payment cancel request",
         uri: "https://developer.worldpay.com/products/access/payments/openapi/manage-payments/cancel.md"
+    },
+    {
+        name: "Card Payment",
+        uri: "https://developer.worldpay.com/products/access/card-payments.md"
+    },
+    {
+        name: "3ds API",
+        uri: "https://developer.worldpay.com/products/access/3ds.md"
     }
 ]
 

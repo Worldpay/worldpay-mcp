@@ -30,10 +30,7 @@ app.post('/mcp', async (req, res) => {
         // Store the transport by session ID
         transports[sessionId] = transport;
       },
-      // DNS rebinding protection is disabled by default for backwards compatibility. If you are running this server
-      // locally, make sure to set:
-      // enableDnsRebindingProtection: true,
-      // allowedHosts: ['127.0.0.1'],
+   
     });
 
     // Clean up transport when closed
@@ -80,5 +77,6 @@ app.get('/mcp', handleSessionRequest);
 
 // Handle DELETE requests for session termination
 app.delete('/mcp', handleSessionRequest);
+
 
 app.listen(3001);
