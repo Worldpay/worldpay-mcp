@@ -4,8 +4,7 @@ import path from "path";
 import fs from "fs/promises";
 import { fileURLToPath } from 'url';
 import { server } from "./server.js";
-import addTool_startTest from './tools/ia/start-test.js';
-import addTool_stopTest from './tools/ia/stop-test.js';
+import {addIntegrationAcceleratorTools} from "./tools/ia/index.js";
 
 // Define __dirname equivalent for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -383,5 +382,4 @@ type WorldpayResponse = {
     }
   );
 
-  addTool_startTest();
-  addTool_stopTest();
+addIntegrationAcceleratorTools(server)
