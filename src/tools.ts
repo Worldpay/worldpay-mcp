@@ -4,6 +4,7 @@ import path from "path";
 import fs from "fs/promises";
 import { fileURLToPath } from 'url';
 import { server } from "./server.js";
+import {addIntegrationAcceleratorTools} from "./tools/ia/index.js";
 
 // Define __dirname equivalent for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -14,7 +15,7 @@ type WorldpayResponse = {
     outcome: string;
     transactionReference: string;
   };
-  
+
   // Add this type definition near the top with the other types
   type Payment = {
     timestamp: string;
@@ -27,16 +28,16 @@ type WorldpayResponse = {
       amount: number;
     };
   };
-  
+
   // Add with other type definitions
   type QueryResponse = {
     _embedded: {
       payments: Payment[];
     };
   };
-  
 
-  
+
+
   // Payment tool schema
   const paymentSchema = {
     cardHolderName: z.string(),
@@ -116,7 +117,7 @@ type WorldpayResponse = {
             }
           }
         };
-  
+
         // Make request to Worldpay API
         const response = await fetch('https://try.access.worldpay.com/api/payments', {
           method: 'POST',
@@ -127,9 +128,9 @@ type WorldpayResponse = {
           },
           body: JSON.stringify(paymentRequest)
         });
-  
+
         const result = await response.json() as WorldpayResponse;
-  
+
         // Return formatted response
         return {
           content: [{
@@ -141,14 +142,14 @@ type WorldpayResponse = {
         return {
           isError: true,
           content: [{
-            type: "text", 
+            type: "text",
             text: `Payment failed: ${(error as Error).message}`
           }]
         };
       }
     }
   );
-  
+
   // Add the query tool after the makePayment tool
   server.tool("queryPayments",
     {
@@ -165,7 +166,7 @@ type WorldpayResponse = {
           pageSize: params.pageSize.toString(),
           ...(params.currency && { currency: params.currency })
         });
-  
+
         const response = await fetch(
           `https://try.access.worldpay.com/paymentQueries/payments?${queryParams}`,
           {
@@ -176,16 +177,16 @@ type WorldpayResponse = {
             }
           }
         );
-  
+
         const result = await response.json() as QueryResponse;
         const payments = result._embedded?.payments || [];
-  
+
         // Create table header
         const table = [
           "| Date | Reference | Type | Auth Type | Currency | Amount |",
           "|------|-----------|------|-----------|----------|---------|"
         ];
-  
+
         // Add each payment as a row
         payments.forEach((payment: Payment) => {
           const date = new Date(payment.timestamp).toLocaleDateString();
@@ -193,7 +194,7 @@ type WorldpayResponse = {
             `| ${date} | ${payment.transactionReference} | ${payment.transactionType} | ${payment.authorizationType} | ${payment.value.currency} | ${payment.value.amount} |`
           );
         });
-  
+
         return {
           content: [{
             type: "text",
@@ -219,14 +220,14 @@ type WorldpayResponse = {
       try {
 
           const response = await fs.readFile(path.join(__dirname, 'templates/examples/payment_api_response.json'), 'utf8');
-    
+
           let component;
           if (params.method === "card" && params.instrument === "session" && params.language === "node") {
             component = await fs.readFile(path.join(__dirname, 'templates/code/cp_session_payment_node.js'), 'utf8');
           } else {
             throw new Error("Unsupported combination of parameters");
           }
-          
+
         return {
           content: [
             {
@@ -255,7 +256,7 @@ type WorldpayResponse = {
         return {
           content: [{
             isError: true,
-            type: "text", 
+            type: "text",
             text: `Server code generation failed: ${(error as Error).message}`
           }]
         };
@@ -310,7 +311,7 @@ type WorldpayResponse = {
         return {
           content: [{
             isError: true,
-            type: "text", 
+            type: "text",
             text: `Payment query generation failed: ${(error as Error).message}`
           }]
         };
@@ -323,18 +324,18 @@ type WorldpayResponse = {
     checkoutFormSchema,
     async (params) => {
       try {
-        const component = params.framework === "web" 
+        const component = params.framework === "web"
           ? await fs.readFile(path.join(__dirname, 'templates/code/checkout_form.html'), 'utf8')
           : await fs.readFile(path.join(__dirname, 'templates/code/react_form.txt'), 'utf8')
-        
-        const styling = params.framework === "web" 
-          ? await fs.readFile(path.join(__dirname, 'templates/code/web_css.css'), 'utf8') 
+
+        const styling = params.framework === "web"
+          ? await fs.readFile(path.join(__dirname, 'templates/code/web_css.css'), 'utf8')
           : await fs.readFile(path.join(__dirname, 'templates/code/react_css.css'), 'utf8')
 
-        const js = params.framework === "web" 
-          ? await fs.readFile(path.join(__dirname, 'templates/code/web_js.js'), 'utf8') 
+        const js = params.framework === "web"
+          ? await fs.readFile(path.join(__dirname, 'templates/code/web_js.js'), 'utf8')
           : "There is no additional JavaScript required for React, as the component handles everything internally.";
-        
+
         return {
           content: [
             {
@@ -373,10 +374,12 @@ type WorldpayResponse = {
         return {
           content: [{
             isError: true,
-            type: "text", 
+            type: "text",
             text: `Checkout creation failed: ${(error as Error).message}`
           }]
         };
       }
     }
   );
+
+addIntegrationAcceleratorTools(server)
