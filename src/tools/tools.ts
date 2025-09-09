@@ -1,11 +1,8 @@
-import { fileURLToPath } from 'url';
 import { server } from "../server.js";
 import { takePaymentWithWorldpayHandler, paymentSchema } from "./payments/take-payment.js";
 import { paymentQuerySchema, queryPaymentsWithWorldpayHandler } from "./payments/query-payments.js";
 import { actionSchema, actionPaymentWithWorldpayHandler } from "./payments/action-payment.js";
 import { createHPPTransation, hppSchema } from "./hpp/hpp.js";
-// Define __dirname equivalent for ES modules
-const __filename = fileURLToPath(import.meta.url);
 
 server.registerTool(
   "takePaymentWithWorldpay",

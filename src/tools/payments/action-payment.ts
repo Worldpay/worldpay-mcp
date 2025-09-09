@@ -1,7 +1,5 @@
 
 import { z } from "zod";
-import { components } from "../../types/payments-api";
-import { paymentSchema } from "./take-payment";
 
 export const actionSchema = z.object({
   actionName: z.string(),
