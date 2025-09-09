@@ -1,4 +1,0 @@
-type: object
-properties:
-  complete3dsChallenge:
-    $ref: ./PaymentsActionComplete3dsChallenge.yaml

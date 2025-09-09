@@ -1,5 +1,0 @@
-type: object
-properties:
-  code:
-    type: string
-description: Contains suggested next actions for this request.

@@ -1,8 +1,0 @@
-type: object
-properties:
-  href:
-    type: string
-  method:
-    type: string
-    default: POST
-description: Partially refund the payment.

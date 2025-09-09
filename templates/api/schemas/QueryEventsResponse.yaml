@@ -1,6 +1,0 @@
-type: object
-properties:
-  lastEvent:
-    type: string
-  _actions:
-    $ref: ./QueryActionList.yaml

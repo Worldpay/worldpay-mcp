@@ -1,8 +1,0 @@
-type: object
-properties:
-  href:
-    type: string
-  method:
-    type: string
-    default: POST
-description: Fully refund the payment. See [details](../payments-lifecycle/refund)

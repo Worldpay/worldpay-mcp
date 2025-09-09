@@ -1,9 +1,0 @@
-required:
-  - reference
-  - value
-type: object
-properties:
-  reference:
-    type: string
-  value:
-    $ref: ./Value.yaml

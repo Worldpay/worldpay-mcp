@@ -3,9 +3,7 @@ import { randomUUID } from "node:crypto";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { isInitializeRequest } from "@modelcontextprotocol/sdk/types.js"
 import { server } from "./server.js";
-import "./prompts.js";
-import "./resources.js";
-import "./tools.js";
+import "./tools/tools.js";
 
 const app = express();
 app.use(express.json());
@@ -79,4 +77,6 @@ app.get('/mcp', handleSessionRequest);
 app.delete('/mcp', handleSessionRequest);
 
 
-app.listen(3001);
+app.listen(3001, () => {
+   console.log("Worldpay HTTP server listening on port 3001");
+});

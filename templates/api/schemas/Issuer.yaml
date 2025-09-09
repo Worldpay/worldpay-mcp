@@ -1,5 +1,0 @@
-type: object
-properties:
-  authorizationCode:
-    type: string
-description: An object containing information returned by the issuer.

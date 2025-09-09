@@ -1,6 +1,0 @@
-type: object
-properties:
-  refundPayment:
-    $ref: ./PaymentsActionRefund.yaml
-  partiallyRefundPayment:
-    $ref: ./PaymentsActionPartialRefund.yaml

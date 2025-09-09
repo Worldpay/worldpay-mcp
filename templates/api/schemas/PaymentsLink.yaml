@@ -1,5 +1,0 @@
-type: object
-properties:
-  self:
-    $ref: ./Self.yaml
-description: Return details about the status of the payment

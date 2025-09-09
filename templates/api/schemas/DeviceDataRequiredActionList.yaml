@@ -1,4 +1,0 @@
-type: object
-properties:
-  supply3dsDeviceData:
-    $ref: ./PaymentsActionSupply3dsDeviceData.yaml

@@ -1,6 +1,0 @@
-type: object
-discriminator:
-  propertyName: outcome
-  mapping:
-    sentForSettlement: ./SentForSettlementResponse.yaml
-    sentForCancellation: ./SentForCancellationResponse.yaml

@@ -1,8 +1,0 @@
-type: object
-properties:
-  postalCode:
-    maxLength: 10
-    minLength: 1
-    pattern: ^[A-Za-z0-9 ]*$
-    type: string
-    description: The postal code of the recipient. Relevant only in the UK.

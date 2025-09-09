@@ -1,9 +1,0 @@
-type: object
-properties:
-  totalValue:
-    $ref: ./Value.yaml
-  quantity:
-    type: integer
-    description: The number of gift cards being purchased.
-    format: int32
-description: If the order is being used to purchase a gift card.

@@ -1,0 +1,7 @@
+name: Worldpay
+version: 0.0.1
+schema: v1
+mcpServers:
+  - name: Worldpay MCP server
+    type: streamable-http
+    url: http://localhost:3001/mcp

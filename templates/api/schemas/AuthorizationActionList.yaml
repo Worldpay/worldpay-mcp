@@ -1,8 +1,0 @@
-type: object
-properties:
-  cancelPayment:
-    $ref: ./PaymentsActionCancel.yaml
-  settlePayment:
-    $ref: ./PaymentsActionSettle.yaml
-  partiallySettlePayment:
-    $ref: ./PaymentsActionPartialSettle.yaml
