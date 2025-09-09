@@ -4,15 +4,12 @@ import { components } from "../../types/payments-api";
 
 export const paymentSchema = z.object({
   cardHolderName: z.string(),
-  cardNumber: z.string(),
-  expiryMonth: z.number().min(1).max(12),
-  expiryYear: z.number(),
-  cvc: z.string(),
+  sessionHref: z.string().describe("Sessions url from Checkout SDK"),
   amount: z.number(),
   currency: z.string().default("GBP"),
   address1: z.string(),
   city: z.string(),
-  postalCode: z.string(),
+  postalCode: z.string().optional(),
   countryCode: z.string(),
   storeCard: z.boolean().default(false),
   createToken: z.boolean().default(false)
@@ -24,24 +21,22 @@ export async function takePaymentWithWorldpayHandler(params: z.infer<typeof paym
   type PaymentsCardOnFileCustomerAgreement = components["schemas"]["PaymentsCardOnFileCustomerAgreement"];
   type TokenCreation = components["schemas"]["TokenCreation"];
   type CardPaymentsInstruction = components["schemas"]["CardPaymentsInstruction"];
-  type PaymentsCardPlainPaymentInstrument = components["schemas"]["PaymentsCardPlainPaymentInstrument"];
+  type SessionPaymentInstrument = components["schemas"]["SessionPaymentInstrument"];
+  type BillingAddress = components["schemas"]["BillingAddress"];
 
-  let paymentInstrument: PaymentsCardPlainPaymentInstrument = {
-    type: "plain",
-    cardNumber: params.cardNumber,
+  let billingAddress: BillingAddress = {
+    address1: params.address1,
+    city: params.city,
+    postalCode: params.postalCode,
+    countryCode: params.countryCode
+  } as BillingAddress;
+
+  let paymentInstrument: SessionPaymentInstrument = {
+    type: "checkout",
     cardHolderName: params.cardHolderName,
-    expiryDate: {
-      year: params.expiryYear,
-      month: params.expiryMonth
-    },
-    cvc: params.cvc,
-    billingAddress: {
-      address1: params.address1,
-      city: params.city,
-      postalCode: params.postalCode,
-      countryCode: params.countryCode
-    }
-  } as PaymentsCardPlainPaymentInstrument;
+    sessionHref: params.sessionHref,
+    billingAddress: billingAddress
+  } as SessionPaymentInstrument;
 
   let instruction: CardPaymentsInstruction = {
     method: "card",
@@ -91,7 +86,7 @@ export async function takePaymentWithWorldpayHandler(params: z.infer<typeof paym
     });
 
     const result = await response.json();
-    
+
     return {
       content: [{
         type: "text" as const,
