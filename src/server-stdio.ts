@@ -3,4 +3,4 @@ import { server } from "./server.js";
 import "./tools/tools.js";
 
 const transport = new StdioServerTransport();
-await server.connect(transport); 
+await server.connect(transport);

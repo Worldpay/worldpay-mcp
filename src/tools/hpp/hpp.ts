@@ -1,16 +1,8 @@
-
 import { z } from "zod";
-import { components } from "../../types/hpp";
-
-export const hppSchema = z.object({
-  amount: z.number(),
-  currency: z.string().default("GBP")
-});
+import { hppSchema } from "../../schemas/schemas";
+import { hppTransaction } from "../../types/hpp";
 
 export async function createHPPTransation(params: z.infer<typeof hppSchema>) {
-
-  type hppTransaction = components["schemas"]["Transaction"];
-
   let transaction: hppTransaction = {
     transactionReference: `TR${Date.now()}`,
     merchant: { entity: "default" },
@@ -18,42 +10,63 @@ export async function createHPPTransation(params: z.infer<typeof hppSchema>) {
     narrative: { line1: "MCP Payment" },
     value: {
       amount: params.amount,
-      currency: params.currency
+      currency: params.currency,
     },
-    threeDS:{
-      type: "disabled"
-    }
-
   } as hppTransaction;
-  
-  try {
-    
 
-    const response = await fetch('https://try.access.worldpay.com/payment_pages', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Basic ${Buffer.from(`${process.env.WORLDPAY_USERNAME}:${process.env.WORLDPAY_PASSWORD}`).toString('base64')}`,
-        'Content-Type': 'application/vnd.worldpay.payment_pages-v1.hal+json',
-        'Accept': 'application/vnd.worldpay.payment_pages-v1.hal+json'
-      },
-      body: JSON.stringify(transaction)
-    });
+  try {
+
+    console.log(
+      `Calling POST ${process.env.WORLDPAY_URL}${
+        process.env.HOSTED_PAYMENTS_PATH
+      } API with params: ${JSON.stringify(params)}`
+    );
+
+    const response = await fetch(
+      `${process.env.WORLDPAY_URL}${process.env.HOSTED_PAYMENTS_PATH}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Basic ${Buffer.from(
+            `${process.env.WORLDPAY_USERNAME}:${process.env.WORLDPAY_PASSWORD}`
+          ).toString("base64")}`,
+          "Content-Type": "application/vnd.worldpay.payment_pages-v1.hal+json",
+          Accept: "application/vnd.worldpay.payment_pages-v1.hal+json",
+        },
+        body: JSON.stringify(transaction),
+      }
+    );
 
     const result = await response.json();
 
+    if (response.status != 200) {
+      throw new Error(
+        `Hosted payment transaction failed with status ${response.status}: ${JSON.stringify(
+          result
+        )}`
+      );
+    }
+
+    console.log(`Hosted payment transaction created successfully: ${result.url}`);  
+
     return {
-      content: [{
-        type: "text" as const,
-        text: JSON.stringify(result)
-      }]
+      content: [
+        {
+          type: "text" as const,
+          text: JSON.stringify(result),
+        },
+      ],
     };
   } catch (error) {
+    console.log(`Hosted error: ${(error as Error).message}`);
     return {
       isError: true,
-      content: [{
-        type: "text" as const,
-        text: `Hosted Payment failed: ${(error as Error).message}`
-      }]
+      content: [
+        {
+          type: "text" as const,
+          text: `Hosted Payment failed: ${(error as Error).message}`,
+        },
+      ],
     };
   }
 }
