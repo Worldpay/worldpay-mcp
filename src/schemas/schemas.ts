@@ -18,7 +18,7 @@ export const paymentSchema = z.object({
   createToken: z.boolean().default(false),
 });
 
-export const paymentQuerySchema = z.object({
+export const paymentDateQuerySchema = z.object({
   startDate: z
     .string()
     .optional()
@@ -32,13 +32,25 @@ export const paymentQuerySchema = z.object({
       "End date for the query in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ)"
     ),
   pageSize: z.number().optional().default(20),
+});
+
+export const paymentTxnRefQuerySchema = z.object({
   transactionReference: z
     .string()
     .optional()
     .describe(
-      "Transaction reference to filter payments by specific transaction, if provided do not pass in other parameters"
+      "Transaction reference to filter payments by"
     ),
+    pageSize: z.number().optional().default(20),
 });
+
+export const paymentIdQuerySchema = z.object({
+    paymentId: z
+        .string()
+        .optional()
+        .describe("Payment ID to filter payments by")
+});
+
 export const manageSchema = z.object({
   commandName: z.string(),
   commandHref: z.string(),

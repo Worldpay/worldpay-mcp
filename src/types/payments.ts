@@ -22,6 +22,6 @@ export type Payment = {
 };
 export type QueryResponse = {
   _embedded: {
-    payments: Payment[];
+    payments: any[];
   };
 };

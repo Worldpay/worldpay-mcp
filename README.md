@@ -23,7 +23,11 @@ This tool supports the generation of a payment link that can be passed to a user
 
 ### Query Payments
 
-This tool uses the [Worlday Payment Queries API](https://developer.worldpay.com/products/access/payment-queries) to search for historical payments within a given date range or using a specific transacion reference.
+This is actually three distinct tools all of which use the [Worlday Payment Queries API](https://developer.worldpay.com/products/access/payment-queries) to search for payments.
+
+* Query By Date Range
+* Query By Transaction Reference
+* Query By Payment Id
 
 ## Resources
 Coming soon

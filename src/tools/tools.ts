@@ -1,13 +1,15 @@
 import { server } from "../server.js";
 import { takePaymentWithWorldpayHandler } from "./payments/take-payment.js";
-import { queryPaymentsWithWorldpayHandler } from "./payments/query-payments.js";
+import { queryPaymentsByDateWithWorldpayHandler, queryPaymentsByIdHandler, queryPaymentsByTxRefHandler } from "./payments/query-payments.js";
 import { managePaymentWithWorldpayHandler } from "./payments/manage-payment.js";
 import { createHPPTransation } from "./hpp/hpp.js";
 import {
   manageSchema,
   hppSchema,
-  paymentQuerySchema,
+  paymentDateQuerySchema,
   paymentSchema,
+  paymentTxnRefQuerySchema,
+  paymentIdQuerySchema,
 } from "../schemas/schemas.js";
 
 server.registerTool(
@@ -31,14 +33,36 @@ server.registerTool(
 );
 
 server.registerTool(
-  "queryPaymentsWithWorldpay",
+  "queryPaymentsByDateWithWorldpay",
   {
-    title: "Query Payments made with Worldpay",
+    title: "Query Payments made with Worldpay by date range",
     description:
-      "Query all payments within a given date and time range, optionally filtered by currency",
-    inputSchema: paymentQuerySchema.shape,
+      "Query all payments within a given date and time range",
+    inputSchema: paymentDateQuerySchema.shape,
   },
-  (params, _extra) => queryPaymentsWithWorldpayHandler(params)
+  (params, _extra) => queryPaymentsByDateWithWorldpayHandler(params)
+);
+
+server.registerTool(
+  "queryPaymentsByTransactionReferenceWithWorldpay",
+  {
+    title: "Query Payments made with Worldpay by transaction reference",
+    description:
+      "Query all payments using a given transaction reference",
+    inputSchema: paymentTxnRefQuerySchema.shape,
+  },
+  (params, _extra) => queryPaymentsByTxRefHandler(params)
+);
+
+server.registerTool(
+  "queryPaymentIdWithWorldpay",
+  {
+    title: "Retrieve specific payment by payment Id",
+    description:
+      "Retrieve specific payment by payment Id",
+    inputSchema: paymentIdQuerySchema.shape,
+  },
+  (params, _extra) => queryPaymentsByIdHandler(params)
 );
 
 server.registerTool(
