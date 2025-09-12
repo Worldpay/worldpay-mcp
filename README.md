@@ -1,6 +1,6 @@
 # Introduction
 
-Welcome to the Worldpay [**M**odel **C**ontext **P**rotocol]((https://modelcontextprotocol.io/) ) Server
+Welcome to the Worldpay [**M**odel **C**ontext **P**rotocol](https://modelcontextprotocol.io/) Server
 
 ## Tools
 
