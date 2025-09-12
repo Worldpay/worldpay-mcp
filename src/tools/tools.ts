@@ -1,10 +1,10 @@
 import { server } from "../server.js";
 import { takePaymentWithWorldpayHandler } from "./payments/take-payment.js";
 import { queryPaymentsWithWorldpayHandler } from "./payments/query-payments.js";
-import { actionPaymentWithWorldpayHandler } from "./payments/action-payment.js";
+import { managePaymentWithWorldpayHandler } from "./payments/manage-payment.js";
 import { createHPPTransation } from "./hpp/hpp.js";
 import {
-  actionSchema,
+  manageSchema,
   hppSchema,
   paymentQuerySchema,
   paymentSchema,
@@ -21,13 +21,13 @@ server.registerTool(
 );
 
 server.registerTool(
-  "actionPaymentWithWorldpay",
+  "managePaymentWithWorldpay",
   {
-    title: "Action Payment with Worldpay",
-    description: "Perform following payment actions using action links",
-    inputSchema: actionSchema.shape,
+    title: "Manage Payment with Worldpay",
+    description: "Perform following payment commands using action links",
+    inputSchema: manageSchema.shape,
   },
-  (params, _extra) => actionPaymentWithWorldpayHandler(params)
+  (params, _extra) => managePaymentWithWorldpayHandler(params)
 );
 
 server.registerTool(

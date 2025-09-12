@@ -39,7 +39,7 @@ export const paymentQuerySchema = z.object({
       "Transaction reference to filter payments by specific transaction, if provided do not pass in other parameters"
     ),
 });
-export const actionSchema = z.object({
-  actionName: z.string(),
-  actionHref: z.string(),
+export const manageSchema = z.object({
+  commandName: z.string(),
+  commandHref: z.string(),
 });

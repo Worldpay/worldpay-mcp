@@ -1,10 +1,10 @@
-import * as actionPayment from "./action-payment";
+import * as managePayment from "./manage-payment";
 
-describe("action-payment tool", () => {
+describe("manage-payment tool", () => {
   it("should be defined", () => {
-    expect(actionPayment).toBeDefined();
+    expect(managePayment).toBeDefined();
   });
-  it("should handle mocked fetch response in actionPaymentWithWorldpayHandler", async () => {
+  it("should handle mocked fetch response in managePaymentWithWorldpayHandler", async () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({
         ok: true,
@@ -12,10 +12,10 @@ describe("action-payment tool", () => {
       })
     ) as jest.Mock;
     const dummyParams = {
-      actionName: "test",
-      actionHref: "https://mocked.endpoint",
+      commandName: "test",
+      commandHref: "https://mocked.endpoint",
     };
-    const result = await actionPayment.actionPaymentWithWorldpayHandler(
+    const result = await managePayment.managePaymentWithWorldpayHandler(
       dummyParams
     );
     expect(result).not.toHaveProperty("isError");

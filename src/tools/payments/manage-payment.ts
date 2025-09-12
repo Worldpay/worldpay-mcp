@@ -1,16 +1,16 @@
 import { z } from "zod";
-import { actionSchema } from "../../schemas/schemas";
+import { manageSchema } from "../../schemas/schemas";
 
-export async function actionPaymentWithWorldpayHandler(
-  params: z.infer<typeof actionSchema>
+export async function managePaymentWithWorldpayHandler(
+  params: z.infer<typeof manageSchema>
 ) {
   try {
 
     console.log(
-      `Calling POST ${params.actionHref} API`
+      `Calling POST ${params.commandHref} API`
     );
 
-    const response = await fetch(params.actionHref, {
+    const response = await fetch(params.commandHref, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +31,7 @@ export async function actionPaymentWithWorldpayHandler(
       );
     }
 
-    console.log('Payment action successful');
+    console.log('Payment command successful');
     
     return {
       content: [
@@ -48,7 +48,7 @@ export async function actionPaymentWithWorldpayHandler(
       content: [
         {
           type: "text" as const,
-          text: `Payment action failed: ${(error as Error).message}`,
+          text: `Payment command failed: ${(error as Error).message}`,
         },
       ],
     };

@@ -1,34 +1,62 @@
 # Introduction
 
-This is a simple MCP server for Worldpay Payment APIs.
+Welcome to the Worldpay [**M**odel **C**ontext **P**rotocol]((https://modelcontextprotocol.io/) ) Server
 
-It implements the [Model Context Protocol](https://modelcontextprotocol.io/) to take and query payments.
+## Tools
 
-There are three versions of the server:
+We'll be adding more tools over the coming months, for now we support the following:
 
-- `server-stdio.js` - a simple server that uses the `stdio` transport.
-- `server-sse.js` - a server that uses the `SSE` transport.
-- `server-http.js` - a sever that uses the `Streamable` transport.
+### Take Payments
 
-# Installation
+This tool will make a direct request to the [Worldpay Payments API](https://developer.worldpay.com/products/access/payments/card-payment).
+It requires a Session url as input which is generated via the [Worldpay Checkout](https://developer.worldpay.com/products/access/checkout/web/card-only) product.
 
-```bash
-npm install
-```
+## Manage Payments
+
+All of the payment products return a set of next action links that can be used to perform follow on commands such as settlement, cancel, refund etc.
+
+This tool takes an action link an invokes that command on a specific payment. See [Payments API/Manage Payments](https://developer.worldpay.com/products/access/payments/openapi/manage-payments).
+
+### Pay By Link
+
+This tool supports the generation of a payment link that can be passed to a user to complete a payment transaction using the [Worldpay Hosted Payment Pages](https://developer.worldpay.com/products/access/hosted-payment-pages) product.
+
+### Query Payments
+
+This tool uses the [Worlday Payment Queries API](https://developer.worldpay.com/products/access/payment-queries) to search for historical payments within a given date range or using a specific transacion reference.
+
+## Resources
+Coming soon
+
+## Prompts
+Comming soon
 
 # Usage
 
-Build the server distributions.
+>Remeber to set your environment by renaming ```.env.example``` to ```.env```. Set your user name and password obtained from [Worldpay Dashboard](https://dashboard.worldpay.com/)
+
+You can clone this repo and run the server using the following command:
 
 ```bash
-npm run build
+npm install && npm build && npm start
 ```
 
-# Configuration 
+or build and run as a container:
+
+```bash
+docker build -t worldpay/mcp .  
+docker run -p 3001:3001 --env-file .env localhost/worldpay/mcp:latest
+```
+
+The server will now be available on port 3001.
+
+>Note that if you wish to use the legacy sse transport, you can run this with ```node ./dist/server-sse.js```
 
 ## stdio
 
-An example JSON config file which can be used with tools such as Claude.
+To use the stdio transport, configure your client to point to ```./dist/server-stdio.js```.
+
+An example configuration file is given.
 
 ```json
 {
@@ -39,31 +67,12 @@ An example JSON config file which can be used with tools such as Claude.
             "args": ["PATH TO server-stdio.js"],
             "env": {
                 "WORLDPAY_USERNAME": "USERNAME",
-                "WORLDPAY_PASSWORD": "PASSWORD"
+                "WORLDPAY_PASSWORD": "PASSWORD",
+                "PAYMENTS_API_PATH": "/api/payments",
+                "QUERY_API_PATH": "/paymentQueries/payments",
+                "HOSTED_PAYMENTS_PATH": "/payment_pages",
+                "WORLDPAY_URL": "https://try.access.worldpay.com"
             }
         }
 ```
 
-## ss + streamable
-
-The sse server is configured using environment variables.
-```bash
-export WORLDPAY_USERNAME=USERNAME
-export WORLDPAY_PASSWORD=PASSWORD
-```
-
-# Running the server
-
-## sse 
-
-Start server, defaults to port 3001.
-```bash
-node dist/server-sse.js
-```
-
-## streamable 
-
-Start server, defaults to port 3001.
-```bash
-node dist/server-http.js
-```
