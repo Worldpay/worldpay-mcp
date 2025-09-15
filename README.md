@@ -72,9 +72,6 @@ An example configuration file is given.
             "env": {
                 "WORLDPAY_USERNAME": "USERNAME",
                 "WORLDPAY_PASSWORD": "PASSWORD",
-                "PAYMENTS_API_PATH": "/api/payments",
-                "QUERY_API_PATH": "/paymentQueries/payments",
-                "HOSTED_PAYMENTS_PATH": "/payment_pages",
                 "WORLDPAY_URL": "https://try.access.worldpay.com"
             }
         }

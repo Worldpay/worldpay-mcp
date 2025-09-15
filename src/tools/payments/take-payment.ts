@@ -10,6 +10,8 @@ import {
 } from "../../types/payments";
 import { paymentSchema } from "../../schemas/schemas";
 
+const PAYMENTS_API_PATH = '/api/payments';
+
 export async function takePaymentWithWorldpayHandler(
   params: z.infer<typeof paymentSchema>
 ) {
@@ -18,12 +20,12 @@ export async function takePaymentWithWorldpayHandler(
 
     console.log(
       `Calling POST ${process.env.WORLDPAY_URL}${
-        process.env.PAYMENTS_API_PATH
+        PAYMENTS_API_PATH
       } API with params: ${JSON.stringify(params)}`
     );
 
     const response = await fetch(
-      `${process.env.WORLDPAY_URL}${process.env.PAYMENTS_API_PATH}`,
+      `${process.env.WORLDPAY_URL}${PAYMENTS_API_PATH}`,
       {
         method: "POST",
         headers: {

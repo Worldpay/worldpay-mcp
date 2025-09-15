@@ -1,10 +1,12 @@
 import { z } from "zod";
-import { QueryResponse } from "../../types/payments";
+
 import {
   paymentDateQuerySchema,
   paymentIdQuerySchema,
   paymentTxnRefQuerySchema,
 } from "../../schemas/schemas";
+
+const QUERY_API_PATH = "/paymentQueries/payments";
 
 export async function queryPaymentsByDateWithWorldpayHandler(
   params: z.infer<typeof paymentDateQuerySchema>
@@ -32,13 +34,13 @@ export async function queryPaymentsByIdHandler(
   params: z.infer<typeof paymentIdQuerySchema>
 ) {
   return callQueryAPI(
-    `${process.env.WORLDPAY_URL}${process.env.QUERY_API_PATH}/${params.paymentId}`
+    `${process.env.WORLDPAY_URL}${QUERY_API_PATH}/${params.paymentId}`
   );
 }
 
 async function callQueryAPIWithParams(queryParams: URLSearchParams) {
   return callQueryAPI(
-    `${process.env.WORLDPAY_URL}${process.env.QUERY_API_PATH}?${queryParams}`
+    `${process.env.WORLDPAY_URL}${QUERY_API_PATH}?${queryParams}`
   );
 }
 

@@ -2,6 +2,8 @@ import { z } from "zod";
 import { hppSchema } from "../../schemas/schemas";
 import { hppTransaction } from "../../types/hpp";
 
+const HOSTED_PAYMENTS_PATH = "/payment_pages";
+
 export async function createHPPTransation(params: z.infer<typeof hppSchema>) {
   let transaction: hppTransaction = {
     transactionReference: `TR${Date.now()}`,
@@ -18,12 +20,12 @@ export async function createHPPTransation(params: z.infer<typeof hppSchema>) {
 
     console.log(
       `Calling POST ${process.env.WORLDPAY_URL}${
-        process.env.HOSTED_PAYMENTS_PATH
+        HOSTED_PAYMENTS_PATH
       } API with params: ${JSON.stringify(params)}`
     );
 
     const response = await fetch(
-      `${process.env.WORLDPAY_URL}${process.env.HOSTED_PAYMENTS_PATH}`,
+      `${process.env.WORLDPAY_URL}${HOSTED_PAYMENTS_PATH}`,
       {
         method: "POST",
         headers: {
