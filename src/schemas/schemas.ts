@@ -18,6 +18,17 @@ export const paymentSchema = z.object({
   createToken: z.boolean().default(false),
 });
 
+export const tokenSchema = z.object({
+  cardHolderName: z.string(),
+  sessionHref: z.string().describe("Sessions url from Checkout SDK"),
+  currency: z.string().default("GBP"),
+  address1: z.string(),
+  city: z.string(),
+  postalCode: z.string(),
+  countryCode: z.string().describe("ISO 3166-1 alpha-2 country code, upper case"),
+  shopperId: z.string().optional(),
+});
+
 export const paymentDateQuerySchema = z.object({
   startDate: z
     .string()

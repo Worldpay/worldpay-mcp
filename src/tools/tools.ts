@@ -10,7 +10,9 @@ import {
   paymentSchema,
   paymentTxnRefQuerySchema,
   paymentIdQuerySchema,
+  tokenSchema,
 } from "../schemas/schemas.js";
+import { createOneTimeVerifiedTokenHandler } from "./tokens/tokens.js";
 
 server.registerTool(
   "takePaymentWithWorldpay",
@@ -74,4 +76,15 @@ server.registerTool(
     inputSchema: hppSchema.shape,
   },
   (params, _extra) => createHPPTransation(params)
+);
+
+server.registerTool(
+  "createOneTimeVerifiedToken",
+  {
+    title: "Create One Time Verified Token",
+    description:
+      "Create a one time verified token from a Checkout SDK session",
+    inputSchema: tokenSchema.shape,
+  },
+  (params, _extra) => createOneTimeVerifiedTokenHandler(params)
 );
