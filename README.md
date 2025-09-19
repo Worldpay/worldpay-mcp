@@ -11,6 +11,11 @@ We'll be adding more tools over the coming months, for now we support the follow
 This tool will make a direct request to the [Worldpay Payments API](https://developer.worldpay.com/products/access/payments/card-payment).
 It requires a Session url as input which is generated via the [Worldpay Checkout](https://developer.worldpay.com/products/access/checkout/web/card-only) product.
 
+#### Verified Token
+
+This tool will verify a card and generate a token for use in a payment using the [Worldpay Verified Tokens](https://developer.worldpay.com/products/access/verified-tokens) product.
+It requires a Session url as input which is generated via the [Worldpay Checkout](https://developer.worldpay.com/products/access/checkout/web/card-only) product.
+
 ### Manage Payments
 
 All of the payment products return a set of next action links that can be used to perform follow on commands such as settlement, cancel, refund etc.
