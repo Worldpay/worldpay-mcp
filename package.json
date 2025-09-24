@@ -14,13 +14,13 @@
     "test:jest": "jest"
   },
   "author": "Worldpay",
-  "license": "MIT",
   "keywords": [
     "worldpay",
     "mcp",
     "payments",
     "paybylink",
-    "hostedpaymentpages"
+    "hostedpaymentpages",
+    "tokens"
   ],
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.17.2",

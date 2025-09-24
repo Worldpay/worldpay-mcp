@@ -3,6 +3,7 @@ import "dotenv/config";
 import winston from "winston";
 
 const { combine, timestamp, prettyPrint } = winston.format;
+
 export const logger = winston.createLogger({
   level: "info",
   format: combine(
