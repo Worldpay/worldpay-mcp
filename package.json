@@ -1,0 +1,50 @@
+{
+  "name": "worldpay-mcp",
+  "version": "1.0.0",
+  "description": "Worldpay MCP Server",
+  "main": "server-http.js",
+  "type": "module",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server-http.js",
+    "dev": "tsc && node dist/server-http.js",
+    "test:jest": "jest"
+  },
+  "author": "Worldpay",
+  "keywords": [
+    "worldpay",
+    "mcp",
+    "payments",
+    "paybylink",
+    "hostedpaymentpages",
+    "tokens"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.17.2",
+    "dotenv": "^16.4.7",
+    "express": "^5.0.1",
+    "node-fetch": "^3.3.2",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.13.5",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.6",
+    "typescript": "^5.7.3"
+  },
+  "jest": {
+    "preset": "ts-jest/presets/default-esm",
+    "testEnvironment": "node",
+    "extensionsToTreatAsEsm": [
+      ".ts"
+    ],
+    "moduleNameMapper": {
+      "^(\\.{1,2}/.*)\\.js$": "$1"
+    }
+  }
+}
