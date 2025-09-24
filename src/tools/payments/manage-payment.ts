@@ -1,12 +1,13 @@
 import { z } from "zod";
 import { manageSchema } from "../../schemas/schemas";
+import { logger } from "../../server.js";
 
 export async function managePaymentWithWorldpayHandler(
   params: z.infer<typeof manageSchema>
 ) {
   try {
 
-    console.log(
+    logger.info(
       `Calling POST ${params.commandHref} API`
     );
 
@@ -31,7 +32,7 @@ export async function managePaymentWithWorldpayHandler(
       );
     }
 
-    console.log('Payment command successful');
+    logger.info('Payment command successful');
     
     return {
       content: [
@@ -42,7 +43,7 @@ export async function managePaymentWithWorldpayHandler(
       ],
     };
   } catch (error) {
-    console.log(`Payment error: ${(error as Error).message}`);
+    logger.error(`Payment error: ${(error as Error).message}`);
     return {
       isError: true,
       content: [

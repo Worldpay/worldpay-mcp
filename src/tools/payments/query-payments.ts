@@ -1,5 +1,5 @@
 import { z } from "zod";
-
+import { logger } from "../../server.js";
 import {
   paymentDateQuerySchema,
   paymentIdQuerySchema,
@@ -46,7 +46,7 @@ async function callQueryAPIWithParams(queryParams: URLSearchParams) {
 
 async function callQueryAPI(path: string) {
   try {
-    console.log(`Calling GET ${path})}`);
+    logger.info(`Calling GET ${path}`);
 
     const response = await fetch(path, {
       method: "GET",
@@ -69,7 +69,7 @@ async function callQueryAPI(path: string) {
     const result = await response.json();
 
     if (result._embedded) {
-      console.log(
+      logger.info(
         `Query successful: ${result._embedded.payments.length} payments found.`
       );
       const payments = result._embedded?.payments || [];
@@ -82,7 +82,7 @@ async function callQueryAPI(path: string) {
         ],
       };
     } else {
-      console.log("Query successful, payment found.");
+      logger.info("Query successful, payment found.");
       return {
         content: [
           {
@@ -95,7 +95,7 @@ async function callQueryAPI(path: string) {
 
 
   } catch (error) {
-    console.log(`Query error: ${(error as Error).message}`);
+    logger.error(`Query error: ${(error as Error).message}`);
     return {
       isError: true,
       content: [

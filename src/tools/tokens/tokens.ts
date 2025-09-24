@@ -8,6 +8,7 @@ import type {
   VerifiedTokenOneTime409Response,
 } from "../../types/tokens.d.ts";
 import { z } from "zod";
+import { logger } from "../../server.js";
 
 const TOKENS_API_PATH = "/verifiedTokens/oneTime";
 
@@ -17,7 +18,7 @@ export async function createOneTimeVerifiedTokenHandler(
   try {
     let tokenRequest: VerifiedTokensOneTimeRequest = createRequest(params);
 
-    console.log(
+    logger.info(
       `Calling POST ${
         process.env.WORLDPAY_URL
       }${TOKENS_API_PATH} API with params: ${JSON.stringify(params)}`
@@ -81,7 +82,7 @@ export async function createOneTimeVerifiedTokenHandler(
         break;
     }
 
-    console.log(description);
+    logger.info(description);
 
     return {
       content: [
@@ -96,7 +97,7 @@ export async function createOneTimeVerifiedTokenHandler(
       ],
     };
   } catch (error) {
-    console.log(`Token error: ${(error as Error).message}`);
+    logger.error(`Token error: ${(error as Error).message}`);
     return {
       isError: true,
       content: [

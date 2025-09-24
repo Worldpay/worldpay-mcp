@@ -8,6 +8,7 @@ export type TokenCreation = components["schemas"]["TokenCreation"];
 export type CardPaymentsInstruction = components["schemas"]["CardPaymentsInstruction"];
 export type SessionPaymentInstrument =
   components["schemas"]["SessionPaymentInstrument"];
+export type TokenPaymentInstrument = components["schemas"]["TokenPaymentInstrument"];
 export type BillingAddress = components["schemas"]["BillingAddress"];
 export type Payment = {
   timestamp: string;

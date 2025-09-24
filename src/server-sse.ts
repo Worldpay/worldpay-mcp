@@ -1,6 +1,6 @@
 import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
 import express from "express";
-import { server } from "./server.js";
+import { server , logger} from "./server.js";
 import "./tools/tools.js";
 
 const app = express();
@@ -16,5 +16,5 @@ app.post("/messages", async (req, res) => {
 });
 
 app.listen(3001, () => {
-  console.log("Worldpay SSE server listening on port 3001");
+  logger.info("Worldpay SSE server listening on port 3001");
 });

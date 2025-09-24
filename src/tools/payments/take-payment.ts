@@ -9,6 +9,7 @@ import {
   TokenCreation,
 } from "../../types/payments";
 import { paymentSchema } from "../../schemas/schemas";
+import { logger } from "../../server.js";
 
 const PAYMENTS_API_PATH = '/api/payments';
 
@@ -18,7 +19,7 @@ export async function takePaymentWithWorldpayHandler(
   try {
     let paymentRequest: PaymentRequest = createRequest(params);
 
-    console.log(
+    logger.info(
       `Calling POST ${process.env.WORLDPAY_URL}${
         PAYMENTS_API_PATH
       } API with params: ${JSON.stringify(params)}`
@@ -49,7 +50,7 @@ export async function takePaymentWithWorldpayHandler(
 
     const result = (await response.json()) as PaymentsResponse201;
 
-    console.log(`Payment outcome: ${result.outcome}`);
+    logger.info(`Payment outcome: ${result.outcome}`);
 
     return {
       content: [
@@ -60,7 +61,7 @@ export async function takePaymentWithWorldpayHandler(
       ],
     };
   } catch (error) {
-    console.log(`Payment error: ${(error as Error).message}`);
+    logger.error(`Payment error: ${(error as Error).message}`);
     return {
       isError: true,
       content: [

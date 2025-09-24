@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { hppSchema } from "../../schemas/schemas";
 import { hppTransaction } from "../../types/hpp";
-
+import { logger } from "../../server.js";
 const HOSTED_PAYMENTS_PATH = "/payment_pages";
 
 export async function createHPPTransation(params: z.infer<typeof hppSchema>) {
@@ -18,7 +18,7 @@ export async function createHPPTransation(params: z.infer<typeof hppSchema>) {
 
   try {
 
-    console.log(
+    logger.info(
       `Calling POST ${process.env.WORLDPAY_URL}${
         HOSTED_PAYMENTS_PATH
       } API with params: ${JSON.stringify(params)}`
@@ -49,7 +49,7 @@ export async function createHPPTransation(params: z.infer<typeof hppSchema>) {
       );
     }
 
-    console.log(`Hosted payment transaction created successfully: ${result.url}`);  
+    logger.info(`Hosted payment transaction created successfully: ${result.url}`);
 
     return {
       content: [
@@ -60,7 +60,7 @@ export async function createHPPTransation(params: z.infer<typeof hppSchema>) {
       ],
     };
   } catch (error) {
-    console.log(`Hosted error: ${(error as Error).message}`);
+    logger.error(`Hosted error: ${(error as Error).message}`);
     return {
       isError: true,
       content: [
