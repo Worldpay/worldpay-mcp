@@ -24,7 +24,7 @@ case $i in
 esac
 done
 
-if [ "${destination}" == "staging" ]; then
+if [[ "${destination}" == "staging" ]]; then
   registryAddress="https://hydra-014399089400.d.codeartifact.eu-west-1.amazonaws.com/npm/worldpay-mcp/"
 #elif [ "${destination}" == "prod" ]; then
 #  registryAddress="https://registry.npmjs.org"
@@ -32,9 +32,9 @@ else
   echo "${invalidArgumentsMessage}"
 fi
 
-if [ -z "${registryAddress}" ]; then
-  echo -e "Registry address is empty, it looks like destination has not been correctly specified \n"
-  echo -e $invalidArgumentsMessage
+if [[ -z "${registryAddress}" ]]; then
+  echo "Registry address is empty, it looks like destination has not been correctly specified \n"
+  echo "${invalidArgumentsMessage}"
   exit 1
 fi
 
