@@ -1,3 +1,4 @@
+#!/bin/bash
 
 invalidArgumentsMessage="Invalid arguments
 Usage:
