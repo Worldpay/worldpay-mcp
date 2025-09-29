@@ -1,33 +1,5 @@
 @Library('pipeline-library') _
 
-static def getProfiles() {
-    return ["dev-euwest1",
-            "stage-euwest1",
-            "stage-useast1",]
-}
-
-static def tokenNameOf(namespace, profileName) {
-    def tokenSuffix = profileName.replace('-live', '')
-            .replace('-try', '')
-
-    return "svc_token-${namespace}-${tokenSuffix}"
-}
-
-def cronExpression() {
-    // it automatically runs every weekday at random times, only for the master branch
-    return BRANCH_NAME == "master" ? "H H * * 1-5" : ""
-}
-
-/*
-########################################################################################################################
-    WARNING: you should not need to change anything beyond this point!!!
-
-    Please configure via jenkins.yaml.
-
-    Otherwise, synchronising with the template in the future will be harder.
-########################################################################################################################
-*/
-
 pipeline {
     agent {
         kubernetes {
@@ -42,19 +14,7 @@ pipeline {
     }
 
     environment {
-        // Read Jenkins configuration
-        config = readYaml(file: "deployment/jenkins.yaml")
 
-        // The name of the service
-        SERVICE_NAME = "${config.service.name}"
-        SERVICE_PORT = "${config.service.port}"
-
-        // Credential used for deployments
-        def profileConfig = readYaml(file: "deployment/profiles/${profile}.yml")
-        SVC_TOKEN = tokenNameOf(profileConfig.deploy.namespace, profile)
-
-        // Slack notifications
-        SLACK_WEBHOOK_URL = "${config.slack.webhookUrl}"
     }
 
     stages {
