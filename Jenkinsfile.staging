@@ -3,8 +3,8 @@
 pipeline {
     agent {
         kubernetes {
-            label "hpp"
-            defaultContainer "hpp"
+            label "hydra-infra"
+            defaultContainer "hydra-infra"
             yaml libraryResource("agents/k8s/hpp.yaml")
         }
     }
