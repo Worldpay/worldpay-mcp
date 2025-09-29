@@ -18,23 +18,7 @@ pipeline {
             }
             steps {
                 script {
-                    sh """
-                       npm install
-                    """
-                }
-            }
-        }
-
-        stage("Build app via npm") {
-            environment {
-                // Need full path of current workspace for setting path of nvm on $PATH
-                WORKSPACE = pwd()
-            }
-            steps {
-                script {
-                    sh """
-                       npm run build
-                    """
+                    sh './scripts/deployment.sh --destination=staging'
                 }
             }
         }
