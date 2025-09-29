@@ -9,13 +9,6 @@ pipeline {
         }
     }
 
-    triggers {
-        cron(cronExpression())
-    }
-
-    environment {
-
-    }
 
     stages {
         stage("Install dependencies via npm") {
