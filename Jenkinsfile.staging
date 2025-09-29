@@ -18,7 +18,9 @@ pipeline {
             }
             steps {
                 script {
-                    sh './scripts/deployment.sh --destination=staging'
+                    sh """
+                    ./scripts/deployment.sh --destination=staging
+                    """
                 }
             }
         }
