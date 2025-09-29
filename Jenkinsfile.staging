@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     sh """
-                    aws codeartifact login --tool npm --repository access-checkout-react-native --domain hydra --domain-owner 014399089400
+                    aws --version
                     """
                 }
             }
