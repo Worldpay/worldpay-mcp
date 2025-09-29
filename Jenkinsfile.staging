@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     sh """
-                    ./scripts/deployment.sh --destination=staging
+                    aws codeartifact login --tool npm --repository access-checkout-react-native --domain hydra --domain-owner 014399089400
                     """
                 }
             }
