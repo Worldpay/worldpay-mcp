@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     sh """
-                    aws --version
+                    ./scripts/deployment.sh --destination=staging
                     """
                 }
             }
