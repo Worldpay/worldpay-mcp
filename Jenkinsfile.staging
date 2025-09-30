@@ -3,9 +3,9 @@
 pipeline {
     agent {
         kubernetes {
-            label "hydra-infra"
+            label "aws-cli"
             defaultContainer "hpp"
-            yaml libraryResource("agents/k8s/hpp.yaml")
+            yaml libraryResource("agents/k8s/awscli.yaml")
         }
     }
 
