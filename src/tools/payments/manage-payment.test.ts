@@ -15,7 +15,7 @@ describe("manage-payment tool", () => {
       commandName: "test",
       commandHref: "https://mocked.endpoint",
     };
-    const result = await managePayment.managePaymentWithWorldpayHandler(
+    const result = await managePayment.managePayment(
       dummyParams
     );
     expect(result).not.toHaveProperty("isError");

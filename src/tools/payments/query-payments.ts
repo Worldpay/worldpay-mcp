@@ -8,7 +8,7 @@ import {
 
 const QUERY_API_PATH = "/paymentQueries/payments";
 
-export async function queryPaymentsByDateWithWorldpayHandler(
+export async function queryPaymentsByDate(
   params: z.infer<typeof paymentDateQuerySchema>
 ) {
   let queryParams = new URLSearchParams({

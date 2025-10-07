@@ -2,9 +2,9 @@ import * as tokens from "./tokens";
 
 describe("tokens tool", () => {
   it("should be defined", () => {
-    expect(tokens.createOneTimeVerifiedTokenHandler).toBeDefined();
+    expect(tokens.createOneTimeVerifiedToken).toBeDefined();
   });
-  it("should handle mocked fetch response in createOneTimeVerifiedTokenHandler", async () => {
+  it("should handle mocked fetch response in createOneTimeVerifiedToken", async () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({
         ok: true,
@@ -12,7 +12,7 @@ describe("tokens tool", () => {
       })
     ) as jest.Mock;
     const dummyParams = {} as any;
-    const result = await tokens.createOneTimeVerifiedTokenHandler(
+    const result = await tokens.createOneTimeVerifiedToken(
       dummyParams
     );
     expect(result).not.toHaveProperty("isError");

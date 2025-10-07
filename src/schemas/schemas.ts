@@ -66,3 +66,8 @@ export const manageSchema = z.object({
   commandName: z.string(),
   commandHref: z.string(),
 });
+
+export const createSessionSchema = z.object({
+  identity: z.string().describe("Your Worldpay checkoutId. This is a client side identifier"),
+  payload: z.any().describe("This must be a valid JSON object containing the payload to store in the session"),
+});

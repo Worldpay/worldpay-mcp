@@ -12,7 +12,7 @@ import { logger } from "../../server.js";
 
 const TOKENS_API_PATH = "/verifiedTokens/oneTime";
 
-export async function createOneTimeVerifiedTokenHandler(
+export async function createOneTimeVerifiedToken(
   params: z.infer<typeof tokenSchema>
 ) {
   try {

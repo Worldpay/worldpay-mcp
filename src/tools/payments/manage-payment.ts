@@ -2,7 +2,7 @@ import { z } from "zod";
 import { manageSchema } from "../../schemas/schemas";
 import { logger } from "../../server.js";
 
-export async function managePaymentWithWorldpayHandler(
+export async function managePayment(
   params: z.infer<typeof manageSchema>
 ) {
   try {

@@ -13,7 +13,7 @@ import { logger } from "../../server.js";
 
 const PAYMENTS_API_PATH = '/api/payments';
 
-export async function takePaymentWithWorldpayHandler(
+export async function takePayment(
   params: z.infer<typeof paymentSchema>
 ) {
   try {
