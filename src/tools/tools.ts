@@ -21,7 +21,7 @@ import { createOneTimeVerifiedToken } from "./tokens/tokens.js";
 import { createPaymentSession } from "./sessions/sessions.js";
 
 server.registerTool(
-  "takePayment",
+  "take_payment",
   {
     title: "Take Payment with Worldpay",
     description: "Take a one time card payment using the Worldpay Payments API",
@@ -31,7 +31,7 @@ server.registerTool(
 );
 
 server.registerTool(
-  "managePayment",
+  "manage_payment",
   {
     title: "Manage Payment with Worldpay",
     description: "Perform follow-on payment commands using action links",
@@ -41,7 +41,7 @@ server.registerTool(
 );
 
 server.registerTool(
-  "queryPaymentsByDate",
+  "query_payments_by_date",
   {
     title: "Query Payments made with Worldpay by date range",
     description: "Query all payments within a given date and time range",
@@ -51,7 +51,7 @@ server.registerTool(
 );
 
 server.registerTool(
-  "queryPaymentsByTransactionReference",
+  "query_payments_by_transaction_reference",
   {
     title: "Query Payments made with Worldpay by transaction reference",
     description: "Query all payments using a given transaction reference",
@@ -61,7 +61,7 @@ server.registerTool(
 );
 
 server.registerTool(
-  "queryPaymentId",
+  "query_payment_by_id",
   {
     title: "Retrieve specific payment by payment Id",
     description: "Retrieve specific payment by payment Id",
@@ -71,7 +71,7 @@ server.registerTool(
 );
 
 server.registerTool(
-  "createHostedPaymentTransaction",
+  "create_hosted_payment_transaction",
   {
     title: "Create Hosted Payment",
     description:
@@ -82,7 +82,7 @@ server.registerTool(
 );
 
 server.registerTool(
-  "createOneTimeVerifiedToken",
+  "create_one_time_verified_token",
   {
     title: "Create One Time Verified Token",
 
@@ -94,7 +94,7 @@ server.registerTool(
 );
 
 server.registerTool(
-  "createPaymentSession",
+  "create_payment_session",
   {
     title: "Create Payment Session",
     description: "Create a session for use with Worldpay's APIs",

@@ -78,5 +78,5 @@ app.get("/mcp", handleSessionRequest);
 app.delete("/mcp", handleSessionRequest);
 
 app.listen(3001, () => {
-  logger.info("Worldpay HTTP server listening on port 3001");
+    logger.info("Worldpay HTTP server listening on port 3001");
 });
