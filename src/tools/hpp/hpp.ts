@@ -7,7 +7,7 @@ const HOSTED_PAYMENTS_PATH = "/payment_pages";
 export async function createHPPTransation(params: z.infer<typeof hppSchema>) {
   let transaction: hppTransaction = {
     transactionReference: `TR${Date.now()}`,
-    merchant: { entity: "default" },
+    merchant: { entity: `${process.env.MERCHANT_ENTITY}` },
     expiry: 3600,
     narrative: { line1: "MCP Payment" },
     value: {

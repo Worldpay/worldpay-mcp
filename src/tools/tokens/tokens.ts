@@ -129,7 +129,7 @@ function createRequest(
 
   let tokenRequest: VerifiedTokensOneTimeRequest = {
     description: `TR${Date.now()}`,
-    merchant: { entity: "default" },
+    merchant: { entity: `${process.env.MERCHANT_ENTITY}` },
     paymentInstrument: paymentInstrument,
     verificationCurrency: params.currency,
     namespace: params.shopperId,

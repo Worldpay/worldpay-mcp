@@ -101,7 +101,7 @@ function createRequest(params: z.infer<typeof paymentSchema>): PaymentRequest {
 
   let paymentRequest: PaymentRequest = {
     transactionReference: `TR${Date.now()}`,
-    merchant: { entity: "default" },
+    merchant: { entity: `${process.env.MERCHANT_ENTITY}` },
     channel: "moto",
     instruction: instruction,
   } as PaymentRequest;
