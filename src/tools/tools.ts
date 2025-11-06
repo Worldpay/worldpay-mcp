@@ -14,17 +14,24 @@ import {
   paymentSchema,
   paymentTxnRefQuerySchema,
   paymentIdQuerySchema,
-  tokenSchema,
-  createSessionSchema,
 } from "../schemas/schemas.js";
-import { createOneTimeVerifiedToken } from "./tokens/tokens.js";
-import { createPaymentSession } from "./sessions/sessions.js";
 
 server.registerTool(
-  "take_payment",
+  "take_guest_payment",
   {
-    title: "Take Payment with Worldpay",
-    description: "Take a one time card payment using the Worldpay Payments API",
+    title: "Take Guest Payment",
+    description: "Take a guest payment using session or worldpay token",
+    inputSchema: paymentSchema.shape,
+  },
+  (params, _extra) => takePayment(params)
+);
+
+server.registerTool(
+  "create_worldpay_token",
+  {
+    title: "Create Worldpay Token without Payment",
+    description:
+      "Create a worldpay token using a session. The amount must be 0, storeCard must be true, and to avoid the PCI implications of storing card numbers set createToken to true.",
     inputSchema: paymentSchema.shape,
   },
   (params, _extra) => takePayment(params)
@@ -33,8 +40,9 @@ server.registerTool(
 server.registerTool(
   "manage_payment",
   {
-    title: "Manage Payment with Worldpay",
-    description: "Perform follow-on payment commands using action links",
+    title: "Manage Payment",
+    description:
+      "Perform actions on a payment after authorization such as refund, cancel and settle",
     inputSchema: manageSchema.shape,
   },
   (params, _extra) => managePayment(params)
@@ -71,34 +79,11 @@ server.registerTool(
 );
 
 server.registerTool(
-  "create_hosted_payment_transaction",
+  "create_hosted_payment",
   {
     title: "Create Hosted Payment",
-    description:
-      "Create a hosted payment page for a specific amount and currency",
+    description: "Create a hosted payment page link to send to customers",
     inputSchema: hppSchema.shape,
   },
   (params, _extra) => createHPPTransation(params)
-);
-
-server.registerTool(
-  "create_one_time_verified_token",
-  {
-    title: "Create One Time Verified Token",
-
-    description:
-      "Create a one time verified token from a Checkout SDK session. If the token is for a Merchant Initiated Transaction in Europe (where PSD2 stipulates Strong Customer Authentication), use the 'takePaymentWithWorldpay' tool instead (setting createToken and storeCard to true) to authenticate via 3DS",
-    inputSchema: tokenSchema.shape,
-  },
-  (params, _extra) => createOneTimeVerifiedToken(params)
-);
-
-server.registerTool(
-  "create_payment_session",
-  {
-    title: "Create Payment Session",
-    description: "Create a session for use with Worldpay's APIs",
-    inputSchema: createSessionSchema.shape,
-  },
-  (params, _extra) => createPaymentSession(params)
 );
