@@ -7,7 +7,10 @@ export const hppSchema = z.object({
 
 export const paymentSchema = z.object({
   cardHolderName: z.string(),
-  sessionHref: z.string().describe("Sessions url from Checkout SDK"),
+  sessionHref: z.string().describe("Optional Sessions url from Checkout SDK (provide either a sessionHref or tokenHref, never both)").optional(),
+  tokenHref: z.string().describe("Token url from stored card (provide either a sessionHref or tokenHref, never both)").optional(),
+  cvc: z.string().describe("Optional CVC (Provide a value in cvcSessionHref or cvc, never both.)").optional(),
+  cvcSessionHref: z.string().describe("Optional CVC session url from Checkout SDK (Provide a value in cvcSessionHref or cvc, never both. Only supply if using tokenHref)").optional(),
   amount: z.number(),
   currency: z.string().default("GBP"),
   address1: z.string(),
@@ -18,16 +21,6 @@ export const paymentSchema = z.object({
   createToken: z.boolean().default(false),
 });
 
-export const tokenSchema = z.object({
-  cardHolderName: z.string(),
-  sessionHref: z.string().describe("Sessions url from Checkout SDK"),
-  currency: z.string().default("GBP"),
-  address1: z.string(),
-  city: z.string(),
-  postalCode: z.string(),
-  countryCode: z.string().describe("ISO 3166-1 alpha-2 country code, upper case"),
-  shopperId: z.string().optional(),
-});
 
 export const paymentDateQuerySchema = z.object({
   startDate: z

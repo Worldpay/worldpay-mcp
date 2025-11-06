@@ -2,6 +2,7 @@ import { z } from "zod";
 import {
   BillingAddress,
   CardPaymentsInstruction,
+  TokenPaymentInstrument,
   PaymentRequest,
   PaymentsCardOnFileCustomerAgreement,
   PaymentsResponse201,
@@ -13,7 +14,7 @@ import { logger } from "../../server.js";
 
 const PAYMENTS_API_PATH = '/api/payments';
 
-export async function takePaymentWithWorldpayHandler(
+export async function takePayment(
   params: z.infer<typeof paymentSchema>
 ) {
   try {
@@ -39,6 +40,8 @@ export async function takePaymentWithWorldpayHandler(
         body: JSON.stringify(paymentRequest),
       }
     );
+
+    logger.info(`Response CorrelationId: ${response.headers.get("wp-correlationid")}`);
 
     if (response.status != 201 && response.status != 202) {
       throw new Error(
@@ -82,13 +85,25 @@ function createRequest(params: z.infer<typeof paymentSchema>): PaymentRequest {
     countryCode: params.countryCode,
   } as BillingAddress;
 
-  let paymentInstrument: SessionPaymentInstrument = {
-    type: "checkout",
-    cardHolderName: params.cardHolderName,
-    sessionHref: params.sessionHref,
-    billingAddress: billingAddress,
-  } as SessionPaymentInstrument;
-
+  let paymentInstrument: TokenPaymentInstrument | SessionPaymentInstrument;
+  if (params.sessionHref) {
+    paymentInstrument = {
+      type: "checkout",
+      cardHolderName: params.cardHolderName,
+      sessionHref: params.sessionHref,
+      billingAddress: billingAddress,
+    } as SessionPaymentInstrument;
+  } else if (params.tokenHref) {
+    paymentInstrument = {
+      type: "token",
+      href: params.tokenHref,
+      cvc: params.cvc,
+      cvcSessionHref: params.cvcSessionHref
+    } as TokenPaymentInstrument;
+  } else {
+    throw new Error("Either sessionHref or tokenHref must be provided");
+  }
+  
   let instruction: CardPaymentsInstruction = {
     method: "card",
     paymentInstrument: paymentInstrument,
@@ -101,7 +116,7 @@ function createRequest(params: z.infer<typeof paymentSchema>): PaymentRequest {
 
   let paymentRequest: PaymentRequest = {
     transactionReference: `TR${Date.now()}`,
-    merchant: { entity: "default" },
+    merchant: { entity: `${process.env.MERCHANT_ENTITY}` },
     channel: "moto",
     instruction: instruction,
   } as PaymentRequest;

@@ -5,7 +5,7 @@ describe("take-payment tool", () => {
   it("should be defined", () => {
     expect(takePayment).toBeDefined();
   });
-  it("should handle mocked fetch response in takePaymentWithWorldpayHandler", async () => {
+  it("should handle mocked fetch response in takePayment", async () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({
         ok: true,
@@ -13,7 +13,7 @@ describe("take-payment tool", () => {
       })
     ) as jest.Mock;
     const dummyParams = {} as any;
-    const result = await takePayment.takePaymentWithWorldpayHandler(
+    const result = await takePayment.takePayment(
       dummyParams
     );
     expect(result).not.toHaveProperty("isError");
