@@ -1,5 +1,5 @@
 {
-  "name": "worldpay-mcp",
+  "name": "@worldpay/worldpay-mcp",
   "version": "1.0.0",
   "description": "Worldpay MCP Server",
   "main": "server-http.js",
