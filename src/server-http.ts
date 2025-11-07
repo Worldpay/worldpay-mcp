@@ -6,7 +6,36 @@ import { server , logger } from "./server.js";
 import "./tools/tools.js";
 
 const app = express();
+app.disable("x-powered-by");
 app.use(express.json());
+
+// Add security headers middleware
+app.use((req, res, next) => {
+  // Content Security Policy - restrictive for API server
+  res.setHeader(
+    'Content-Security-Policy',
+    "default-src 'none'; " +
+    "script-src 'none'; " +
+    "style-src 'none'; " +
+    "img-src 'none'; " +
+    "font-src 'none'; " +
+    "connect-src 'none'; " +
+    "media-src 'none'; " +
+    "object-src 'none'; " +
+    "child-src 'none'; " +
+    "frame-ancestors 'none'; " +
+    "form-action 'none'; " +
+    "base-uri 'none'"
+  );
+  
+  // Additional security headers
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'no-referrer');
+  
+  next();
+});
 
 // Map to store transports by session ID
 const transports: { [sessionId: string]: StreamableHTTPServerTransport } = {};
