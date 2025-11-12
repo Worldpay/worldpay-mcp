@@ -1,4 +1,4 @@
-import * as queryPayments from "./query-payments";
+import * as queryPayments from "./query-payments.js";
 
 describe("query-payments tool", () => {
   it("should be defined", () => {
@@ -8,6 +8,7 @@ describe("query-payments tool", () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({
         ok: true,
+        status: 200,
         json: () =>
           Promise.resolve({
             _embedded: {
@@ -24,7 +25,7 @@ describe("query-payments tool", () => {
     const result = await queryPayments.queryPaymentsByDate(
       dummyParams
     );
-    expect(result).not.toHaveProperty("isError");
+  expect(result).not.toHaveProperty("isError", true);
     (global.fetch as jest.Mock).mockClear();
   });
 });

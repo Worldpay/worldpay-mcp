@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { manageSchema } from "../../schemas/schemas";
+import { manageSchema } from "../../schemas/schemas.js";
 import { logger } from "../../server.js";
 
 export async function managePayment(

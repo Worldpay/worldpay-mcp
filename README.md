@@ -2,43 +2,7 @@
 
 Welcome to the Worldpay [**M**odel **C**ontext **P**rotocol](https://modelcontextprotocol.io/) Server
 
-## Tools
-
-We'll be adding more tools over the coming months, for now we support the following:
-
-### Take Payments
-
-This tool will make a direct request to the [Worldpay Payments API](https://developer.worldpay.com/products/access/payments/card-payment).
-It requires a Session url as input which is generated via the [Worldpay Checkout](https://developer.worldpay.com/products/access/checkout/web/card-only) product.
-
-### Verified Token
-
-This tool will verify a card and generate a token for use in a payment using the [Worldpay Verified Tokens](https://developer.worldpay.com/products/access/verified-tokens) product.
-It requires a Session url as input which is generated via the [Worldpay Checkout](https://developer.worldpay.com/products/access/checkout/web/card-only) product.
-
-### Manage Payments
-
-All of the payment products return a set of next action links that can be used to perform follow on commands such as settlement, cancel, refund etc.
-
-This tool takes an action link an invokes that command on a specific payment. See [Payments API/Manage Payments](https://developer.worldpay.com/products/access/payments/openapi/manage-payments).
-
-### Pay By Link
-
-This tool supports the generation of a payment link that can be passed to a user to complete a payment transaction using the [Worldpay Hosted Payment Pages](https://developer.worldpay.com/products/access/hosted-payment-pages) product.
-
-### Query Payments
-
-This is actually three distinct tools all of which use the [Worlday Payment Queries API](https://developer.worldpay.com/products/access/payment-queries) to search for payments.
-
-* Query By Date Range
-* Query By Transaction Reference
-* Query By Payment Id
-
-## Resources
-Coming soon
-
-## Prompts
-Comming soon
+For detailed instructions, please visit our [developer documentation](https://developer.worldpay.com/products/ai/mcp).
 
 # Usage
 
@@ -77,7 +41,8 @@ An example configuration file is given.
             "env": {
                 "WORLDPAY_USERNAME": "USERNAME",
                 "WORLDPAY_PASSWORD": "PASSWORD",
-                "WORLDPAY_URL": "https://try.access.worldpay.com"
+                "WORLDPAY_URL": "https://try.access.worldpay.com",
+                "MERCHANT_ENTITY": "default"
             }
         }
 ```

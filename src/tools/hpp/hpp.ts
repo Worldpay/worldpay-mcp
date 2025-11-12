@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { hppSchema } from "../../schemas/schemas";
-import { hppTransaction } from "../../types/hpp";
+import { hppSchema } from "../../schemas/schemas.js";
+import { hppTransaction } from "../../types/hpp.js";
 import { logger } from "../../server.js";
 const HOSTED_PAYMENTS_PATH = "/payment_pages";
 

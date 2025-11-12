@@ -14,7 +14,9 @@ import {
   paymentSchema,
   paymentTxnRefQuerySchema,
   paymentIdQuerySchema,
+  accountPayoutQuerySchema,
 } from "../schemas/schemas.js";
+import { queryAccountPayouts } from "./payouts/query-payouts.js";
 
 server.registerTool(
   "take_guest_payment",
@@ -86,4 +88,14 @@ server.registerTool(
     inputSchema: hppSchema.shape,
   },
   (params, _extra) => createHPPTransation(params)
+);
+
+server.registerTool(
+  "query_account_payouts",
+  {
+    title: "Query Account Payouts",
+    description: "Query for payouts made through Worldpay",
+    inputSchema: accountPayoutQuerySchema.shape,
+  },
+  (params, _extra) => queryAccountPayouts(params)
 );

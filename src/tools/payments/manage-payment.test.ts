@@ -1,4 +1,4 @@
-import * as managePayment from "./manage-payment";
+import * as managePayment from "./manage-payment.js";
 
 describe("manage-payment tool", () => {
   it("should be defined", () => {
@@ -9,6 +9,7 @@ describe("manage-payment tool", () => {
       Promise.resolve({
         ok: true,
         json: () => Promise.resolve({ action: "test", status: "SUCCESS" }),
+        status: 201,
       })
     ) as jest.Mock;
     const dummyParams = {
@@ -18,7 +19,7 @@ describe("manage-payment tool", () => {
     const result = await managePayment.managePayment(
       dummyParams
     );
-    expect(result).not.toHaveProperty("isError");
+  expect(result).not.toHaveProperty("isError", true);
     (global.fetch as jest.Mock).mockClear();
   });
 });

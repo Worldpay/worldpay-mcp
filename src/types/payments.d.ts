@@ -1,4 +1,4 @@
-import { components } from "./payments-api";
+import { components } from "./payments-api.js";
 
 export type PaymentRequest = components["schemas"]["PaymentRequest"];
 export type PaymentsResponse201 = components["schemas"]["PaymentsResponse201"];

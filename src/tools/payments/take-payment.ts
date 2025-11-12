@@ -8,8 +8,8 @@ import {
   PaymentsResponse201,
   SessionPaymentInstrument,
   TokenCreation,
-} from "../../types/payments";
-import { paymentSchema } from "../../schemas/schemas";
+} from "../../types/payments.js";
+import { paymentSchema } from "../../schemas/schemas.js";
 import { logger } from "../../server.js";
 
 const PAYMENTS_API_PATH = '/api/payments';

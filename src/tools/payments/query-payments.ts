@@ -4,7 +4,7 @@ import {
   paymentDateQuerySchema,
   paymentIdQuerySchema,
   paymentTxnRefQuerySchema,
-} from "../../schemas/schemas";
+} from "../../schemas/schemas.js";
 
 const QUERY_API_PATH = "/paymentQueries/payments";
 
