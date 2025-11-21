@@ -50,7 +50,7 @@ export async function createHPPTransaction(params: z.infer<typeof hppSchema>) {
       );
     }
 
-    logger.info(`Hosted payment transaction created successfully: ${result.url}`);
+    logger.info(`Hosted payment transaction created successfully: ${result}`);
 
     return {
       content: [
