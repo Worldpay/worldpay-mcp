@@ -1,10 +1,11 @@
 import { z } from "zod";
-import { hppSchema } from "../../schemas/schemas";
-import { hppTransaction } from "../../types/hpp";
-import { logger } from "../../server.js";
+import { hppSchema } from "@/schemas/schemas";
+import { hppTransaction } from "@/types/hpp";
+import { logger } from "@/server";
+
 const HOSTED_PAYMENTS_PATH = "/payment_pages";
 
-export async function createHPPTransation(params: z.infer<typeof hppSchema>) {
+export async function createHPPTransaction(params: z.infer<typeof hppSchema>) {
   let transaction: hppTransaction = {
     transactionReference: `TR${Date.now()}`,
     merchant: { entity: `${process.env.MERCHANT_ENTITY}` },

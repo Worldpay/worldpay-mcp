@@ -1,11 +1,11 @@
 import { z } from "zod";
-import { logger } from "../../server.js";
+import { logger } from "@/server";
 import {
   paymentDateQuerySchema,
   paymentIdQuerySchema,
   paymentTxnRefQuerySchema,
-} from "../../schemas/schemas";
-import {MCPResponse} from "../../utils/mcp-response";
+} from "@/schemas/schemas";
+import {MCPResponse} from "@/utils/mcp-response";
 
 const QUERY_API_PATH = "/paymentQueries/payments";
 

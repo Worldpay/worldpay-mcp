@@ -13,8 +13,14 @@
     "declarationMap": true,
     "sourceMap": true,
     "lib": ["ES2022", "DOM"],
-    "types": ["node", "jest"]
+    "types": ["node", "@types/jest"],
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/test": ["tests/*"]
+    }
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "tests/**/*"],
   "exclude": ["node_modules", "dist"]
-} 
+}

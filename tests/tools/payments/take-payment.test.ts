@@ -1,10 +1,6 @@
-import { stat } from "fs";
-import * as takePayment from "./take-payment";
+import {takePayment} from "@/tools/payments/take-payment";
 
 describe("take-payment tool", () => {
-  it("should be defined", () => {
-    expect(takePayment).toBeDefined();
-  });
   it("should handle mocked fetch response in takePayment", async () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({
@@ -13,7 +9,7 @@ describe("take-payment tool", () => {
       })
     ) as jest.Mock;
     const dummyParams = {} as any;
-    const result = await takePayment.takePayment(
+    const result = await takePayment(
       dummyParams
     );
     expect(result).not.toHaveProperty("isError");

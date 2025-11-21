@@ -6,15 +6,7 @@ import {
   queryPaymentsByTxRefHandler,
 } from "./payments/query-payments.js";
 import { managePayment } from "./payments/manage-payment.js";
-import { createHPPTransation } from "./hpp/hpp.js";
-import {
-  manageSchema,
-  hppSchema,
-  paymentDateQuerySchema,
-  paymentSchema,
-  paymentTxnRefQuerySchema,
-  paymentIdQuerySchema,
-} from "../schemas/schemas.js";
+import { createHPPTransaction } from "./hpp/hpp.js";
 
 server.registerTool(
   "take_guest_payment",
@@ -85,5 +77,5 @@ server.registerTool(
     description: "Create a hosted payment page link to send to customers",
     inputSchema: hppSchema.shape,
   },
-  (params, _extra) => createHPPTransation(params)
+  (params, _extra) => createHPPTransaction(params)
 );

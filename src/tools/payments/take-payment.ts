@@ -8,10 +8,10 @@ import {
   PaymentsResponse201,
   SessionPaymentInstrument,
   TokenCreation,
-} from "../../types/payments";
-import { paymentSchema } from "../../schemas/schemas";
-import { logger } from "../../server.js";
-import {MCPResponse} from "../../utils/mcp-response";
+} from "@/types/payments";
+import { paymentSchema } from "@/schemas/schemas";
+import { logger } from "@/server";
+import {MCPResponse} from "@/utils/mcp-response";
 
 const PAYMENTS_API_PATH = '/api/payments';
 

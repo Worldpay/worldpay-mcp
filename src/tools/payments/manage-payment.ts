@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { manageSchema } from "../../schemas/schemas";
-import { logger } from "../../server.js";
-import {MCPResponse} from "../../utils/mcp-response";
+import { manageSchema } from "@/schemas/schemas";
+import { logger } from "@/server";
+import {MCPResponse} from "@/utils/mcp-response";
 
 export async function managePayment(
   params: z.infer<typeof manageSchema>

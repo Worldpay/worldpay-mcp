@@ -1,10 +1,7 @@
-import * as hpp from "./hpp";
+import {createHPPTransaction} from "@/tools/hpp/hpp";
 
 describe("hpp tool", () => {
-  it("should be defined", () => {
-    expect(hpp).toBeDefined();
-  });
-  it("should handle mocked fetch response in createHPPTransation", async () => {
+  it("should handle mocked fetch response in createHPPTransaction", async () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({
         ok: true,
@@ -13,8 +10,7 @@ describe("hpp tool", () => {
       })
     ) as jest.Mock;
     const dummyParams = { amount: 100, currency: "GBP" };
-    const result = await hpp.createHPPTransation(dummyParams);
+    const result = await createHPPTransaction(dummyParams);
     expect(result).not.toHaveProperty("isError");
-    (global.fetch as jest.Mock).mockClear();
   });
 });
