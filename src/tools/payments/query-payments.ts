@@ -5,6 +5,7 @@ import {
   paymentIdQuerySchema,
   paymentTxnRefQuerySchema,
 } from "../../schemas/schemas";
+import {MCPResponse} from "../../utils/mcp-response";
 
 const QUERY_API_PATH = "/paymentQueries/payments";
 
@@ -75,20 +76,14 @@ async function callQueryAPI(path: string) {
       const payments = result._embedded?.payments || [];
       return {
         content: [
-          {
-            type: "text" as const,
-            text: JSON.stringify(payments),
-          },
+          MCPResponse.text(payments)
         ],
       };
     } else {
       logger.info("Query successful, payment found.");
       return {
         content: [
-          {
-            type: "text" as const,
-            text: JSON.stringify(result),
-          },
+          MCPResponse.text(result)
         ],
       };
     }
@@ -99,10 +94,7 @@ async function callQueryAPI(path: string) {
     return {
       isError: true,
       content: [
-        {
-          type: "text" as const,
-          text: `Query failed: ${(error as Error).message}`,
-        },
+        MCPResponse.text(`Query failed: ${(error as Error).message}`)
       ],
     };
   }

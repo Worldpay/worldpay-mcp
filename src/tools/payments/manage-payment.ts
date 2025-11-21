@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { manageSchema } from "../../schemas/schemas";
 import { logger } from "../../server.js";
+import {MCPResponse} from "../../utils/mcp-response";
 
 export async function managePayment(
   params: z.infer<typeof manageSchema>
@@ -33,13 +34,10 @@ export async function managePayment(
     }
 
     logger.info('Payment command successful');
-    
+
     return {
       content: [
-        {
-          type: "text" as const,
-          text: JSON.stringify(result),
-        },
+        MCPResponse.text(result)
       ],
     };
   } catch (error) {
@@ -47,10 +45,7 @@ export async function managePayment(
     return {
       isError: true,
       content: [
-        {
-          type: "text" as const,
-          text: `Payment command failed: ${(error as Error).message}`,
-        },
+        MCPResponse.text(`Payment command failed: ${(error as Error).message}`)
       ],
     };
   }

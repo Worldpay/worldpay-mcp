@@ -11,6 +11,7 @@ import {
 } from "../../types/payments";
 import { paymentSchema } from "../../schemas/schemas";
 import { logger } from "../../server.js";
+import {MCPResponse} from "../../utils/mcp-response";
 
 const PAYMENTS_API_PATH = '/api/payments';
 
@@ -57,10 +58,7 @@ export async function takePayment(
 
     return {
       content: [
-        {
-          type: "text" as const,
-          text: JSON.stringify(result),
-        },
+        MCPResponse.text(result)
       ],
     };
   } catch (error) {
@@ -68,10 +66,7 @@ export async function takePayment(
     return {
       isError: true,
       content: [
-        {
-          type: "text" as const,
-          text: `Payment failed: ${(error as Error).message}`,
-        },
+        MCPResponse.text(`Payment failed: ${(error as Error).message}`)
       ],
     };
   }
@@ -103,7 +98,7 @@ function createRequest(params: z.infer<typeof paymentSchema>): PaymentRequest {
   } else {
     throw new Error("Either sessionHref or tokenHref must be provided");
   }
-  
+
   let instruction: CardPaymentsInstruction = {
     method: "card",
     paymentInstrument: paymentInstrument,
