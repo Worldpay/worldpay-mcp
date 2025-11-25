@@ -43,28 +43,7 @@ export class HTTPTransport implements ConnectableServerTransport {
     }));
     this.app.disable("x-powered-by");
     this.app.use(express.json());
-    this.app.use(this.requestResponseLogger());
     this.app.use(this.securityHeadersMiddleware());
-  }
-
-  private requestResponseLogger() {
-    return (req: Request, res: Response, next: NextFunction) => {
-      const start = process.hrtime.bigint();
-      const sessionId = req.headers["mcp-session-id"];
-      console.info(
-        `[REQUEST] ${req.method} ${req.originalUrl}` +
-        (sessionId ? ` session=${sessionId}` : "")
-      );
-      res.on("finish", () => {
-        const durationMs =
-          Number(process.hrtime.bigint() - start) / 1_000_000;
-        console.info(
-          `[RESPONSE] ${req.method} ${req.originalUrl} ${res.statusCode} ${durationMs.toFixed(
-            1
-          )}ms` + (sessionId ? ` session=${sessionId}` : ""));
-      });
-      next();
-    };
   }
 
   private securityHeadersMiddleware() {
