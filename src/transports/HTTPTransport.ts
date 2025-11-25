@@ -26,11 +26,11 @@ export class HTTPTransport implements ConnectableServerTransport {
 
 
     const server = this.app.listen(this.port, () => {
-      console.info(`Worldpay MCP HTTP server listening on port ${this.port}`);
+      logger.info(`Worldpay MCP HTTP server listening on port ${this.port}`);
     });
 
     server.on('error', (err) => {
-      console.error(`HTTP server failed: ${err.message}`);
+      logger.error(`HTTP server failed: ${err.message}`);
     });
   }
 

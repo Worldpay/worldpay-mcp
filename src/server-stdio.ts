@@ -1,6 +1,7 @@
 
 import {WorldpayMCPServer} from "@/worldpay-mcp-server";
 import {StdioTransport} from "@/transports/StdioTransport";
+import {logger} from "@/utils/logger";
 
 try {
   const server = new WorldpayMCPServer({
@@ -14,6 +15,6 @@ try {
   const transport = new StdioTransport(server);
   await transport.connect();
 } catch (error) {
-  console.error('Failed to start Worldpay MCP STDIO server:', error);
+  logger.error('Failed to start Worldpay MCP STDIO server:', error);
   process.exit(1);
 }

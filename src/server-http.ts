@@ -1,5 +1,6 @@
 import {HTTPTransport} from "@/transports/HTTPTransport";
 import {WorldpayMCPServer} from "@/worldpay-mcp-server";
+import {logger} from "@/utils/logger";
 
 try {
   const server = new WorldpayMCPServer({
@@ -14,6 +15,6 @@ try {
   const transport = new HTTPTransport(3001, server);
   await transport.connect()
 } catch (error) {
-  console.error('Failed to start Worldpay MCP HTTP server:', error);
+  logger.error('Failed to start Worldpay MCP HTTP server:', error);
   process.exit(1);
 }
