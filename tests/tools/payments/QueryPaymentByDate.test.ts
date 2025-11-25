@@ -1,14 +1,20 @@
-import {queryPaymentsByDate} from "@/tools/payments/query-payments";
 import fetchMock from "fetch-mock";
+import {WorldpayAPI} from "@/api/worldpay";
+import {QueryPaymentByDate} from "@/tools/payments/QueryPaymentByDate";
 
-describe("query-payments tool", () => {
+describe("QueryPaymentByDate tool", () => {
+  let tool: QueryPaymentByDate;
   beforeEach(() => {
-    process.env.WORLDPAY_URL = "https://preprod.access.worldpay.com";
-    process.env.WORLDPAY_USERNAME = "user";
-    process.env.WORLDPAY_PASSWORD = "pass";
-    process.env.MERCHANT_ENTITY = "merchant-123";
-  });
-
+    const mockApi = new WorldpayAPI({
+      name: "Worldpay",
+      version: "1.0.0",
+      baseUrl: "https://preprod.access.worldpay.com",
+      username: "user",
+      password: "pass",
+      merchantEntity: "merchant-123"
+    })
+    tool = new QueryPaymentByDate(mockApi)
+  })
   it("should handle mocked fetch response in queryPaymentsByDate", async () => {
 
     fetchMock.mockGlobal().get(
@@ -27,7 +33,7 @@ describe("query-payments tool", () => {
       endDate: "2025-09-09T23:59:59Z",
       pageSize: 1,
     };
-    const result = await queryPaymentsByDate(
+    const result = await tool.execute(
       dummyParams
     );
     expect(result).not.toHaveProperty("isError");

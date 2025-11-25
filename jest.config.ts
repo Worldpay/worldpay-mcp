@@ -4,8 +4,9 @@ import { compilerOptions } from "./tsconfig.json";
 const jestConfig: JestConfigWithTsJest = {
   preset: "ts-jest",
   moduleDirectories: ["node_modules", "<rootDir>"],
+  testMatch: ['**/*.test.ts'],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
-  setupFilesAfterEnv: ["<rootDir>/tests/jest.setup.ts"]
+  setupFilesAfterEnv: ["<rootDir>/tests/jest.setup.ts"],
 }
 
 export default jestConfig;

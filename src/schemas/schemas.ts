@@ -1,4 +1,4 @@
-import { z } from "zod";
+import {z} from "zod";
 
 export const hppSchema = z.object({
   amount: z.number(),
@@ -45,14 +45,14 @@ export const paymentTxnRefQuerySchema = z.object({
     .describe(
       "Transaction reference to filter payments by"
     ),
-    pageSize: z.number().optional().default(20),
+  pageSize: z.number().optional().default(20),
 });
 
 export const paymentIdQuerySchema = z.object({
-    paymentId: z
-        .string()
-        .optional()
-        .describe("Payment ID to filter payments by")
+  paymentId: z
+    .string()
+    .optional()
+    .describe("Payment ID to filter payments by")
 });
 
 export const manageSchema = z.object({
