@@ -214,7 +214,7 @@ export class WorldpayAPI {
 
     let paymentRequest: PaymentRequest = {
       transactionReference: `TR${Date.now()}`,
-      merchant: {entity: `${process.env.MERCHANT_ENTITY}`},
+      merchant: {entity: `${this.config.merchantEntity}`},
       channel: "moto",
       instruction: instruction,
     } as PaymentRequest;

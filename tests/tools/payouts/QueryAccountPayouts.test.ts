@@ -18,7 +18,7 @@ describe("QueryAccountPayouts tool", () => {
 
   it("should handle mocked fetch response in managePaymentWithWorldpayHandler", async () => {
     fetchMock.mockGlobal().get(
-      "https://preprod.access.worldpay.com/paymentQueries/payments?transactionReference=XYZ102025&pageSize=1&pageNumber=1",
+      " https://preprod.access.worldpay.com/paymentQueries/payments?transactionReference=XYZ102025&pageSize=1&pageNumber=1&entity=merchant-123",
       {
         status: 200,
         body: {
