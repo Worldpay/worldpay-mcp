@@ -185,7 +185,9 @@ export interface paths {
     trace?: never;
   };
 }
+
 export type webhooks = Record<string, never>;
+
 export interface components {
   schemas: {
     SettleRequest: Record<string, never>;
@@ -2029,7 +2031,9 @@ export interface components {
   headers: never;
   pathItems: never;
 }
+
 export type $defs = Record<string, never>;
+
 export interface operations {
   payment: {
     parameters: {
@@ -2751,6 +2755,7 @@ export interface operations {
     };
   };
 }
+
 type WithRequired<T, K extends keyof T> = T & {
   [P in K]-?: T[P];
 };
