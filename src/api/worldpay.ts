@@ -1,5 +1,11 @@
 import {logger} from "@/utils/logger";
-import {manageSchema, paymentDateQuerySchema, paymentSchema, paymentTxnRefQuerySchema} from "@/schemas/schemas";
+import {
+  accountPayoutQuerySchema,
+  manageSchema,
+  paymentDateQuerySchema,
+  paymentSchema,
+  paymentTxnRefQuerySchema
+} from "@/schemas/schemas";
 import {RegisteredTool} from '@modelcontextprotocol/sdk/server/mcp.js';
 
 import {z} from "zod";
@@ -33,7 +39,7 @@ export class WorldpayAPI {
     return `Basic ${token}`;
   }
 
-  async callQueryAPIWithParams(queryParams: URLSearchParams): Promise<RegisteredTool> {
+  async callQueryAPIWithParams(queryParams: URLSearchParams): Promise<any> {
     return this.callQueryAPI(
       `${this.config.baseUrl}${QUERY_API_PATH}?${queryParams}`
     );
@@ -228,5 +234,18 @@ export class WorldpayAPI {
       paymentRequest.instruction.tokenCreation = token;
     }
     return paymentRequest;
+  }
+
+  async queryAccountPayouts(params: z.infer<typeof accountPayoutQuerySchema>) {
+    const entries: [string, string][] = Object.entries(params)
+      .filter(([key, value]) => value !== undefined && value !== null && value !== "")
+      .map(([key, value]) => [key, String(value)]);
+
+    if (process.env.MERCHANT_ENTITY) {
+      entries.push(["entity", process.env.MERCHANT_ENTITY]);
+    }
+    const queryParams = new URLSearchParams(entries);
+
+    return this.callQueryAPIWithParams(queryParams);
   }
 }
