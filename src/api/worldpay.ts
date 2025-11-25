@@ -241,8 +241,8 @@ export class WorldpayAPI {
       .filter(([key, value]) => value !== undefined && value !== null && value !== "")
       .map(([key, value]) => [key, String(value)]);
 
-    if (process.env.MERCHANT_ENTITY) {
-      entries.push(["entity", process.env.MERCHANT_ENTITY]);
+    if (this.config.merchantEntity) {
+      entries.push(["entity", this.config.merchantEntity]);
     }
     const queryParams = new URLSearchParams(entries);
 
