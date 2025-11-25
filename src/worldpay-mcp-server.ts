@@ -7,6 +7,7 @@ import {QueryPaymentById} from "@/tools/payments/QueryPaymentById";
 import {QueryPaymentByTxRef} from "@/tools/payments/QueryPaymentByTxRef";
 import {McpServer} from "@modelcontextprotocol/sdk/server/mcp.js";
 import {TakeGuestPayment} from "@/tools/payments/TakeGuestPayment";
+import {QueryAccountPayouts} from "@/tools/payouts/QueryAccountPayouts";
 
 export interface WorldpayMCPConfig {
   name: string,
@@ -36,6 +37,7 @@ export class WorldpayMCPServer extends McpServer {
       new QueryPaymentByDate(this.worldpayApi),
       new QueryPaymentById(this.worldpayApi),
       new QueryPaymentByTxRef(this.worldpayApi),
+      new QueryAccountPayouts(this.worldpayApi)
     ];
 
     // Automatically register all tools
