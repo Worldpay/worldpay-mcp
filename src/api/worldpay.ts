@@ -21,13 +21,10 @@ import {
   TokenPaymentInstrument
 } from "@/types/payments";
 import {WorldpayMCPConfig} from "@/worldpay-mcp-server";
-import {components as SessionComponents} from "@/types/sessions-api";
 
 const QUERY_API_PATH = "/paymentQueries/payments";
 const PAYMENTS_API_PATH = '/api/payments';
 const DELEGATE_TOKEN_PATH = "/sessions/agentic_commerce/delegate_payment";
-
-type DelegatePaymentRequest = SessionComponents["schemas"]["DelegatePaymentRequest"];
 
 export class WorldpayAPI {
   private config: WorldpayMCPConfig;
@@ -255,19 +252,15 @@ export class WorldpayAPI {
   }
 
   async createDelegateToken(args: z.infer<typeof delegateTokenSchema>) {
-    let request: DelegatePaymentRequest = {
-      ...args
-    } as DelegatePaymentRequest;
-
+   
     logger.info(
-      `Calling POST ${process.env.WORLDPAY_URL}${
-        DELEGATE_TOKEN_PATH
-      } API with args: ${JSON.stringify(args)}`
+      `Calling POST ${this.config.baseUrl}${
+        DELEGATE_TOKEN_PATH}`
     );
     const basicAuth = this.getBasicAuth()
 
     const response = await fetch(
-      `${process.env.WORLDPAY_URL}${DELEGATE_TOKEN_PATH}`,
+      `${this.config.baseUrl}${DELEGATE_TOKEN_PATH}`,
       {
         method: "POST",
         headers: {
@@ -276,7 +269,7 @@ export class WorldpayAPI {
           "API-Version": "2025-09-29",
           Accept: "application/json",
         },
-        body: JSON.stringify(request),
+        body: JSON.stringify(args),
       }
     );
 
