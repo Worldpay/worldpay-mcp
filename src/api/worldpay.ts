@@ -1,6 +1,7 @@
 import {logger} from "@/utils/logger";
 import {
   accountPayoutQuerySchema,
+  delegateTokenSchema,
   manageSchema,
   paymentDateQuerySchema,
   paymentSchema,
@@ -23,6 +24,7 @@ import {WorldpayMCPConfig} from "@/worldpay-mcp-server";
 
 const QUERY_API_PATH = "/paymentQueries/payments";
 const PAYMENTS_API_PATH = '/api/payments';
+const DELEGATE_TOKEN_PATH = "/sessions/agentic_commerce/delegate_payment";
 
 export class WorldpayAPI {
   private config: WorldpayMCPConfig;
@@ -247,5 +249,42 @@ export class WorldpayAPI {
     const queryParams = new URLSearchParams(entries);
 
     return this.callQueryAPIWithParams(queryParams);
+  }
+
+  async createDelegateToken(args: z.infer<typeof delegateTokenSchema>) {
+   
+    logger.info(
+      `Calling POST ${this.config.baseUrl}${
+        DELEGATE_TOKEN_PATH}`
+    );
+    const basicAuth = this.getBasicAuth()
+
+    const response = await fetch(
+      `${this.config.baseUrl}${DELEGATE_TOKEN_PATH}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: basicAuth,
+          "Content-Type": "application/json",
+          "API-Version": "2025-09-29",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(args),
+      }
+    );
+
+    const result = await response.json();
+
+    if (response.status != 201) {
+      throw new Error(
+        `Creating a Delegate Token failed with status ${response.status}: ${JSON.stringify(
+          result
+        )}`
+      );
+    }
+
+    logger.info(`Created a Delegate Token successfully`);
+
+    return result;
   }
 }
