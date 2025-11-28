@@ -79,3 +79,50 @@ export const accountPayoutQuerySchema = z.object({
   targetCurrency: z.string().optional().describe("Target ISO 4217 alpha-3 currency codes for the payout."),
   targetAmount: z.number().optional().describe("18 digit precision including 2 decimal places"),
 });
+
+
+export const delegateTokenSchema = z.object({
+  payment_method: z.object({
+    type: z.enum(["card"]).describe("Payment method type"),
+    card_number_type: z.enum(["fpan", "network_token"]).describe("Type of card number"),
+    number: z.string().describe("Network token or fallback fpan value"),
+    exp_month: z.string().optional().describe("Expiration month"),
+    exp_year: z.string().optional().describe("Expiration year"),
+    name: z.string().optional().describe("Cardholder name"),
+    cvc: z.string().optional().describe("Card verification code"),
+    cryptogram: z.string().optional().describe("Payment cryptogram"),
+    eci_value: z.string().optional().describe("Electronic Commerce Indicator value"),
+    checks_performed: z.array(z.enum(["avs", "cvv", "ani", "auth0"])).optional().describe("Checks performed on the payment method"),
+    iin: z.string().optional().describe("Issuer identification number"),
+    display_card_funding_type: z.enum(["credit", "debit", "prepaid"]).describe("Card funding type for display"),
+    display_wallet_type: z.string().optional().describe("Wallet type for display"),
+    display_brand: z.string().optional().describe("Card brand for display"),
+    display_last4: z.string().optional().describe("Last 4 digits for display"),
+    metadata: z.object({}).describe("Payment method metadata")
+  }).describe("Payment method details"),
+  
+  allowance: z.object({
+    reason: z.enum(["one_time"]).describe("Reason for the allowance"),
+    max_amount: z.number().describe("Maximum amount in minor units (e.g., $20 → 2000)"),
+    currency: z.string().describe("ISO-4217 lowercase currency code (e.g., usd)"),
+    checkout_session_id: z.string().describe("Checkout session identifier"),
+    merchant_id: z.string().describe("Merchant identifier. This should be retrieved from the Merchant who will process the payment"),
+    expires_at: z.string().describe("Expiration timestamp")
+  }).describe("Allowance constraints for the delegated token"),
+  
+  billing_address: z.object({
+    line_one: z.string().describe("First line of billing address"),
+    line_two: z.string().optional().describe("Second line of billing address"),
+    city: z.string().describe("Billing address city"),
+    state: z.string().describe("Billing address state"),
+    country: z.string().describe("ISO-3166-1 alpha-2 country code"),
+    postal_code: z.string().describe("Billing address postal code")
+  }).optional().describe("Billing address information"),
+  
+  risk_signals: z.array(z.object({
+    score: z.number().describe("Risk score"),
+    action: z.enum(["blocked", "manual_review", "authorized"]).describe("Risk action taken")
+  })).describe("Risk assessment signals"),
+
+  metadata: z.object({}).describe("Additional metadata for the delegate token")
+});
