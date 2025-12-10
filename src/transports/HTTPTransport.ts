@@ -79,6 +79,10 @@ export class HTTPTransport implements ConnectableServerTransport {
     router.post("/mcp", this.handlePost.bind(this));
     router.get("/mcp", this.handleSessionRequest.bind(this));
     router.delete("/mcp", this.handleSessionRequest.bind(this));
+    // Health and readiness endpoints
+    router.get("/healthz", (_req, res) => res.status(200).json({ status: "up" }));
+    router.get("/readyz", (_req, res) => res.status(200).json({ status: "ready" }));
+
     this.app.use(router);
   }
 
