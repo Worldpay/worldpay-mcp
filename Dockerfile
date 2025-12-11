@@ -25,4 +25,4 @@ EXPOSE 3001
 # ENV WORLDPAY_PASSWORD=
 # ENV WORLDPAY_URL=https://try.access.worldpay.com
 
-CMD ["node", "dist/server-http.js"]
+CMD ["node", "dist/server-stdio.js"]
