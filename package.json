@@ -30,6 +30,14 @@
     "node-fetch": "^3.3.2",
     "winston": "^3.17.0"
   },
+  "overrides": {
+    "express": {
+      "qs": "6.14.1"
+    },
+    "@modelcontextprotocol/sdk": {
+      "qs": "6.14.1"
+    }
+  },
   "devDependencies": {
     "@fetch-mock/jest": "^0.2.20",
     "@types/cors": "^2.8.19",
