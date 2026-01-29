@@ -24,9 +24,9 @@
     "tokens"
   ],
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.17.2",
+    "@modelcontextprotocol/sdk": "^1.25.2",
     "dotenv": "^16.4.7",
-    "express": "^5.2.0",
+    "express": "^5.2.1",
     "node-fetch": "^3.3.2",
     "winston": "^3.17.0"
   },
