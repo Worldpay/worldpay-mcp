@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 
 import {WorldpayMCPServer} from "@/worldpay-mcp-server";
 import {StdioTransport} from "@/transports/StdioTransport";
