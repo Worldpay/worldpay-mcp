@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import {HTTPTransport} from "@/transports/HTTPTransport";
 import {WorldpayMCPServer} from "@/worldpay-mcp-server";
 import {logger} from "@/utils/logger";
