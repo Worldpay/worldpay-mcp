@@ -6,7 +6,7 @@ import {logger} from "@/utils/logger";
 try {
   const server = new WorldpayMCPServer({
     name: "Worldpay",
-    version: "1.0.0",
+    version: "1.0.1",
     baseUrl: process.env.WORLDPAY_URL!,
     username: process.env.WORLDPAY_USERNAME!,
     password: process.env.WORLDPAY_PASSWORD!,
