@@ -7,7 +7,7 @@
   "files": [
     "dist/**/*"
   ],
-  "bin": "dist/server-http.js",
+  "bin": "dist/server-stdio.js",
   "scripts": {
     "build": "tsc --build && tsc-alias",
     "start": "node dist/server-http.js",
