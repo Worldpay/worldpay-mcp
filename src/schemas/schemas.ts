@@ -1,7 +1,7 @@
 import {z} from "zod";
 
 export const hppSchema = z.object({
-  amount: z.number(),
+  amount: z.number().describe("Amount in minor units (e.g., £10 would be 1000)"),
   currency: z.string().default("GBP"),
 });
 
@@ -11,7 +11,7 @@ export const paymentSchema = z.object({
   tokenHref: z.string().describe("Token url from stored card (provide either a sessionHref or tokenHref, never both)").optional(),
   cvc: z.string().describe("Optional CVC (Provide a value in cvcSessionHref or cvc, never both.)").optional(),
   cvcSessionHref: z.string().describe("Optional CVC session url from Checkout SDK (Provide a value in cvcSessionHref or cvc, never both. Only supply if using tokenHref)").optional(),
-  amount: z.number(),
+  amount: z.number().describe("Amount in minor units (e.g., £10 would be 1000)"),
   currency: z.string().default("GBP"),
   address1: z.string(),
   city: z.string(),
