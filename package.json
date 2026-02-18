@@ -33,6 +33,9 @@
   "overrides": {
     "express": {
       "qs": "^6.14.2"
+    },
+    "@modelcontextprotocol/sdk": {
+      "ajv": "^8.18.0"
     }
   },
   "devDependencies": {
