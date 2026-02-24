@@ -82,3 +82,30 @@ An example configuration file is given.
         }
 ```
 
+
+
+## Companion Tools
+
+### MerchantGuard MCP — Fraud Scoring for Agentic Commerce
+
+Use [MerchantGuard MCP](https://github.com/MerchantGuardOps/merchantguard-mcp) alongside Worldpay MCP to add AI-native fraud scoring to every agent transaction. MerchantGuard provides:
+
+- **Transaction Risk Scoring** — Score transactions for fraud risk before processing payment
+- **Agent Verification** — Verify AI agent trustworthiness and authorization levels
+- **Cross-Rail Fraud Detection** — Detect fraud patterns across card, stablecoin, and crypto rails
+- **VAMP Analysis** — Monitor Visa Acquirer Monitoring Program compliance
+
+```json
+{
+  "mcpServers": {
+    "merchantguard": {
+      "command": "node",
+      "args": ["/path/to/merchantguard-mcp/dist/server-stdio.js"]
+    },
+    "worldpay": {
+      "command": "node",
+      "args": ["/path/to/worldpay-mcp/dist/server-stdio.js"]
+    }
+  }
+}
+```
